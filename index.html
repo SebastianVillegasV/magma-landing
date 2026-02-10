@@ -1,9 +1,228 @@
-magma-landing/
-  index.html
-  styles.css
-  script.js
-  assets/
-    teaser.mp4
-    teaser-poster.jpg
-    favicon.png
-    logo.svg
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>MAGMA — La constancia crea fuerza</title>
+  <meta name="description" content="Empresas y equipos potenciados por MAGMA. Aprendizaje vivo, microdosis y resultados medibles." />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="MAGMA" />
+        <div class="word">MAGMA</div>
+      </div>
+      <nav style="display:flex; gap:14px; align-items:center;">
+        <a class="btn" href="#como">Cómo funciona</a>
+        <a class="btn" href="#form">Solicitar acceso</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      playsinline
+      preload="metadata"
+      poster="assets/teaser-poster.jpg"
+    >
+      <source src="assets/TEASER_LANDING_MAGMA_1920X1080_baja.mp4" type="video/mp4" />
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-grid">
+
+        <!-- TEXTO PRINCIPAL -->
+        <div>
+          <span class="badge">
+            Aprendizaje vivo · Capacitaciones livianas · Resultados medibles
+          </span>
+
+          <h1 class="mantra" style="margin-top:16px;">
+            <span class="line">La constancia crea fuerza.</span>
+            <span class="line">Empresas potenciadas por <span class="accent">MAGMA</span>.</span>
+            <span class="line">Equipos potenciados por <span class="accent">MAGMA</span>.</span>
+          </h1>
+
+          <p style="max-width:60ch; margin-top:14px;">
+            Microdosis de entrenamiento integradas al trabajo real.  
+            Práctica constante, foco y evidencia de impacto.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#form">Solicitar acceso</a>
+            <a class="btn" id="waBtn" href="#">Hablar por WhatsApp</a>
+          </div>
+
+          <p class="note" style="margin-top:10px;">
+            Diseñado para líderes comerciales, talento y equipos que necesitan resultados, no discursos.
+          </p>
+        </div>
+
+        <!-- BLOQUE LATERAL -->
+        <div class="card">
+          <span class="kicker">Para quién es MAGMA</span>
+          <h2>Equipos que no pueden detener la operación.</h2>
+          <p>
+            Organizaciones que buscan elevar capacidades comerciales sin frenar el ritmo del negocio.
+          </p>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+            <span class="badge">Dirección Comercial</span>
+            <span class="badge">Talento & Cultura</span>
+            <span class="badge">CEO / Founder</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ ES MAGMA -->
+  <section class="section">
+    <div class="container split">
+      <div>
+        <span class="kicker">Qué es MAGMA</span>
+        <h2>Entrenamiento como fuerza continua.</h2>
+        <p>
+          MAGMA es un sistema de aprendizaje vivo que opera con la misma lógica del trabajo real:
+          presión constante, foco y movimiento.
+        </p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Microdosis</h3>
+          <p>Entrenamientos breves, claros y accionables.</p>
+        </div>
+        <div class="card">
+          <h3>En flujo</h3>
+          <p>Sin cursos largos ni pausas operativas.</p>
+        </div>
+        <div class="card">
+          <h3>Medible</h3>
+          <p>Progreso visible por persona y por equipo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="section" id="como">
+    <div class="container">
+      <span class="kicker">Cómo funciona</span>
+      <h2>Pequeñas dosis. Transformación real.</h2>
+
+      <div class="cards">
+        <div class="card">
+          <h3>1. Diagnóstico</h3>
+          <p>Identificamos brechas y capacidades críticas.</p>
+        </div>
+        <div class="card">
+          <h3>2. Entrenamiento diario</h3>
+          <p>Microdosis prácticas integradas al día a día.</p>
+        </div>
+        <div class="card">
+          <h3>3. Evidencia</h3>
+          <p>Seguimiento, métricas y señales de impacto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="section" id="form">
+    <div class="container split">
+      <div>
+        <span class="kicker">Acceso temprano</span>
+        <h2>Solicita acceso a MAGMA</h2>
+        <p>
+          Estamos habilitando pilotos para equipos que buscan elevar desempeño
+          comercial con impacto medible.
+        </p>
+      </div>
+
+      <form
+        class="form"
+        id="leadForm"
+        method="POST"
+        action="https://formspree.io/f/TU_ID_AQUI"
+      >
+        <div class="field">
+          <label>Nombre</label>
+          <input name="nombre" required />
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+
+        <div class="field">
+          <label>Empresa</label>
+          <input name="empresa" required />
+        </div>
+
+        <div class="field">
+          <label>Rol</label>
+          <select name="rol" required>
+            <option value="">Selecciona</option>
+            <option>Dirección Comercial</option>
+            <option>Talento / Cultura</option>
+            <option>CEO / Founder</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Tamaño del equipo</label>
+          <select name="equipo" required>
+            <option value="">Selecciona</option>
+            <option>1–10</option>
+            <option>11–50</option>
+            <option>51–200</option>
+            <option>200+</option>
+          </select>
+        </div>
+
+        <button class="btn primary" type="submit">
+          Enviar solicitud
+        </button>
+
+        <p class="note" style="margin-top:10px;">
+          Al enviar aceptas ser contactado por el equipo MAGMA.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container" style="display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+      <div>© <span id="year"></span> MAGMA</div>
+      <div>
+        <a href="#form">Solicitar acceso</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
