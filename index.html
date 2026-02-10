@@ -7,10 +7,7 @@
   <title>MAGMA — La constancia crea fuerza</title>
   <meta name="description" content="Empresas y equipos potenciados por MAGMA. Aprendizaje vivo, microdosis y resultados medibles." />
 
-  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
 
@@ -23,6 +20,7 @@
         <img src="assets/logo.svg" alt="MAGMA" />
         <div class="word">MAGMA</div>
       </div>
+
       <nav style="display:flex; gap:14px; align-items:center;">
         <a class="btn" href="#como">Cómo funciona</a>
         <a class="btn" href="#form">Solicitar acceso</a>
@@ -31,7 +29,7 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-label="MAGMA hero">
     <video
       class="hero-video"
       autoplay
@@ -50,30 +48,16 @@
     <div class="container hero-content">
       <div class="hero-grid">
 
-        <!-- TEXTO PRINCIPAL -->
+        <!-- HERO SOLO CTA (para no duplicar texto del video) -->
         <div>
-          <span class="badge">
-            Aprendizaje vivo · Capacitaciones livianas · Resultados medibles
-          </span>
-
-          <h1 class="mantra" style="margin-top:16px;">
-            <span class="line">La constancia crea fuerza.</span>
-            <span class="line">Empresas potenciadas por <span class="accent">MAGMA</span>.</span>
-            <span class="line">Equipos potenciados por <span class="accent">MAGMA</span>.</span>
-          </h1>
-
-          <p style="max-width:60ch; margin-top:14px;">
-            Microdosis de entrenamiento integradas al trabajo real.  
-            Práctica constante, foco y evidencia de impacto.
-          </p>
-
-          <div class="hero-actions">
+          <div class="hero-actions" style="margin-top:18px;">
             <a class="btn primary" href="#form">Solicitar acceso</a>
             <a class="btn" id="waBtn" href="#">Hablar por WhatsApp</a>
           </div>
 
-          <p class="note" style="margin-top:10px;">
-            Diseñado para líderes comerciales, talento y equipos que necesitan resultados, no discursos.
+          <p class="note" style="margin-top:10px; max-width:52ch;">
+            Microdosis de entrenamiento integradas al trabajo real.
+            Práctica constante, foco y evidencia de impacto.
           </p>
         </div>
 
@@ -224,7 +208,6 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
 </html>
