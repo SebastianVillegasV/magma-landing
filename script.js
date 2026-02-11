@@ -1,51 +1,49 @@
-// Año automático en el footer
-const yearEl = document.getElementById("year");
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
+document.addEventListener("DOMContentLoaded", () => {
+  
+  const enterBtn = document.getElementById("enterBtn");
+  const landingLayer = document.getElementById("landing-layer");
+  const body = document.body;
 
-// Botón de WhatsApp
-const waBtn = document.getElementById("waBtn");
-if (waBtn) {
-  const phoneNumber = "573212712271"; // +57 321 271 2271
-  const message = "Hola, quiero conocer MAGMA y solicitar una demo.";
-  const encodedMessage = encodeURIComponent(message);
+  // 1. Lógica de "Activar Magma" (Transición Landing -> Site)
+  if (enterBtn && landingLayer) {
+    enterBtn.addEventListener("click", () => {
+      
+      // A. Deslizar el telón hacia arriba
+      landingLayer.classList.add("slide-up");
+      
+      // B. Desbloquear el scroll del body
+      body.classList.remove("locked");
+      
+      // C. Opcional: Detener el video después de la transición para ahorrar recursos
+      setTimeout(() => {
+        const video = landingLayer.querySelector("video");
+        if(video) video.pause();
+      }, 1000); // 1000ms espera a que termine la animación CSS
+    });
+  }
 
-  waBtn.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-  waBtn.target = "_blank";
-  waBtn.rel = "noopener noreferrer";
-}
+  // 2. Año automático
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Placeholder para eventos futuros (analytics / pixels)
-const leadForm = document.getElementById("leadForm");
-if (leadForm) {
-  leadForm.addEventListener("submit", () => {
-    // Aquí luego podemos disparar Google Analytics, LinkedIn Pixel, etc.
-    console.log("Lead form submitted");
+  // 3. Botón WhatsApp
+  const waBtn = document.getElementById("waBtn");
+  if (waBtn) {
+    const phoneNumber = "573212712271"; 
+    const message = "Hola, quiero activar una demo de MAGMA.";
+    waBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    waBtn.target = "_blank";
+  }
+
+  // 4. Smooth Scroll para enlaces internos
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
   });
-}
-// Botón de entrada (fase 1 -> fase 2)
-const enterBtn = document.getElementById("enterBtn");
-if (enterBtn) {
-  enterBtn.addEventListener("click", () => {
-    const onepage = document.getElementById("onepage");
-    if (onepage) onepage.scrollIntoView({ behavior: "smooth" });
-  });
-}
-// Bloquear scroll al inicio (solo hero)
-document.documentElement.classList.add("locked");
-document.body.classList.add("locked");
-
-// Botón de entrada (fase 1 -> fase 2)
-const enterBtn = document.getElementById("enterBtn");
-if (enterBtn) {
-  enterBtn.addEventListener("click", () => {
-    // Desbloquear scroll y mostrar onepage
-    document.documentElement.classList.remove("locked");
-    document.body.classList.remove("locked");
-
-    // Ir al onepage
-    const onepage = document.getElementById("onepage");
-    if (onepage) onepage.scrollIntoView({ behavior: "smooth" });
-  });
-}
+});
