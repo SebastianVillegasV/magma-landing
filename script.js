@@ -24,3 +24,11 @@ if (leadForm) {
     console.log("Lead form submitted");
   });
 }
+// Botón de entrada (fase 1 -> fase 2)
+const enterBtn = document.getElementById("enterBtn");
+if (enterBtn) {
+  enterBtn.addEventListener("click", () => {
+    const onepage = document.getElementById("onepage");
+    if (onepage) onepage.scrollIntoView({ behavior: "smooth" });
+  });
+}
