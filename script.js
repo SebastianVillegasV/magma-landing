@@ -32,3 +32,20 @@ if (enterBtn) {
     if (onepage) onepage.scrollIntoView({ behavior: "smooth" });
   });
 }
+// Bloquear scroll al inicio (solo hero)
+document.documentElement.classList.add("locked");
+document.body.classList.add("locked");
+
+// Botón de entrada (fase 1 -> fase 2)
+const enterBtn = document.getElementById("enterBtn");
+if (enterBtn) {
+  enterBtn.addEventListener("click", () => {
+    // Desbloquear scroll y mostrar onepage
+    document.documentElement.classList.remove("locked");
+    document.body.classList.remove("locked");
+
+    // Ir al onepage
+    const onepage = document.getElementById("onepage");
+    if (onepage) onepage.scrollIntoView({ behavior: "smooth" });
+  });
+}
