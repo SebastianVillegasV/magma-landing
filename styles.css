@@ -213,3 +213,15 @@ textarea{min-height:100px; resize:vertical}
 .onepage{
   background: var(--bg);
 }
+/* Bloquear scroll hasta activar */
+html.locked,
+body.locked {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Cuando está bloqueado, el onepage no se puede ver */
+body.locked #onepage {
+  display: none;
+}
