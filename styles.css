@@ -115,12 +115,14 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   padding: 100px 0 60px; /* Margen superior para el dock */
 }
 
+/* EL RECORTE (CROP) */
 .video-window {
   position: relative;
   width: 100%;
-  height: 55vh; /* Proporción apaisada cinematográfica */
-  background: #000;
+  aspect-ratio: 21 / 9; /* Esto define el look ultra-wide de cine */
+  max-height: 50vh; 
   overflow: hidden;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,10 +130,10 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 
 .hero-video-panoramic {
   position: absolute;
-  top: 0; left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Aquí es donde ocurre el crop arriba y abajo */
+  object-position: center;
   z-index: 1;
 }
 
