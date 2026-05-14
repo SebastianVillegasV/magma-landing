@@ -89,38 +89,32 @@
   <main id="main-content">
     <div id="inicio"></div>
     
-<section class="cinematic-hero" id="inicio">
+<section class="cinematic-container" id="inicio">
       
-      <video id="magmaHeroVideo" autoplay muted loop playsinline webkit-playsinline class="hero-video-bg">
-        <source src="assets/Teaser.mp4" type="video/mp4">
-      </video>
-      
-      <div class="hero-overlay"></div>
+      <div class="video-window">
+        <video autoplay muted loop playsinline webkit-playsinline class="hero-video-panoramic">
+          <source src="assets/Teaser.mp4" type="video/mp4">
+        </video>
+        
+        <div class="video-overlay-tint"></div>
 
-      <div class="hero-content">
-        <div class="reveal">
-          
-          <div class="mask-line">
-            <span class="hero-kicker">Somos el futuro del aprendizaje de las empresas</span>
-          </div>
-          
-          <h1 class="hero-title mask-title">
-            <span class="mask-line"><span>Equipos</span></span>
-            <span class="mask-line"><span>Potenciados</span></span>
-            <span class="mask-line"><span>Por <span style="color: var(--magma-amber);">Magma</span></span></span>
-          </h1>
-          
-          <div class="mask-line" style="transition-delay: 0.4s;">
-            <p class="hero-subtitle">La constancia crea la fuerza</p>
-          </div>
-
-          <div class="mask-line" style="transition-delay: 0.6s; margin-top: 40px;">
-            <span><a href="#form" class="btn primary magnetic-btn">Iniciar Protocolo</a></span>
-          </div>
-
+        <div class="text-sequence-container">
+          <p class="seq-text seq-1">Somos el futuro del aprendizaje de las empresas</p>
+          <h1 class="seq-text seq-2">Equipos Potenciados Por <span style="color: var(--magma-amber);">Magma</span></h1>
+          <p class="seq-text seq-3">La constancia crea la fuerza</p>
+          <img src="assets/isologo.svg" alt="MAGMA" class="seq-logo">
         </div>
       </div>
-      
+
+    </section>
+
+    <section class="section intro-text">
+      <div class="container text-center">
+        <div class="reveal">
+          <h2 class="pragmatica-bold">Capacitación que no detiene la operación.</h2>
+          <p class="large-p">Integramos el aprendizaje vivo en el flujo de trabajo diario de tus equipos, asegurando que cada minuto invertido se traduzca en resultados medibles para la organización.</p>
+        </div>
+      </div>
     </section>
 
     <section class="container metrics-section">
