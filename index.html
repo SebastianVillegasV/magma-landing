@@ -10,7 +10,6 @@
 </head>
 
 <body>
-  
   <div class="custom-cursor"></div>
   <div class="cursor-follower"></div>
 
@@ -20,7 +19,7 @@
       <a href="#inicio" class="dock-item logo-dock-item" data-tooltip="Inicio">
         <img src="assets/isologo.svg" alt="MAGMA" class="dock-logo">
         <svg class="dock-flame" viewBox="0 0 24 24">
-          <path d="M12 2c0 0-5 7-5 11.5a5.5 5.5 0 0 0 11 0C18 9 12 2 12 2zM12 20a3.5 3.5 0 0 1-3.5-3.5c0-2 1.5-4.5 3.5-6.5 2 2 3.5 4.5 3.5 6.5A3.5 3.5 0 0 1 12 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M12 2c0 0-5 7-5 11.5a5.5 5.5 0 0 0 11 0C18 9 12 2 12 2zM12 20a3.5 3.5 0 0 1-3.5-3.5c0-2 1.5-4.5 3.5-6.5 2 2 3.5 4.5 3.5 6.5A3.5 3.5 0 0 1 12 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
 
@@ -58,16 +57,12 @@
           </div>
 
           <div class="bento-card video-card reveal" style="transition-delay: 0.1s;">
-            <video 
-              id="magmaInteractiveVideo"
-              autoplay muted loop playsinline 
-              poster="assets/teaser-poster.jpg"
-              class="interactive-media">
+            <video id="magmaInteractiveVideo" autoplay muted loop playsinline webkit-playsinline poster="assets/teaser-poster.jpg" class="interactive-media">
               <source src="assets/Teaser.mp4" type="video/mp4">
             </video>
             <div class="video-ui">
               <button class="video-toggle magnetic-btn" id="muteToggle">
-                <svg viewBox="0 0 24 24" class="icon-unmute"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                <svg viewBox="0 0 24 24" class="icon-unmute" style="width:20px;height:20px"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               </button>
               <span class="video-label">Ver el concepto</span>
             </div>
@@ -88,7 +83,7 @@
           <div class="evo-title">Aplicación Práctica (<24h)</div>
           <div class="evo-bar-container"><div class="evo-bar-fill" data-end="92"></div></div>
           <div class="evo-stats">
-            <div class="evo-before">E-learning Tradicional: <strong>12%</strong></div>
+            <div class="evo-before">Tradicional: <strong>12%</strong></div>
             <div class="evo-after"><span class="count" data-start="12" data-target="92">12</span><span>%</span></div>
           </div>
         </div>
@@ -106,123 +101,16 @@
           <div class="evo-title">Retención del Conocimiento</div>
           <div class="evo-bar-container"><div class="evo-bar-fill" data-end="86"></div></div>
           <div class="evo-stats">
-            <div class="evo-before">A los 90 días: <strong>21%</strong></div>
+            <div class="evo-before">A 90 días: <strong>21%</strong></div>
             <div class="evo-after"><span class="count" data-start="21" data-target="86">21</span><span>%</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="metodologia">
-      <div class="container split">
-        <div class="reveal">
-          <span class="kicker">El Problema</span>
-          <h2>Tu competencia no gana por tener mejor producto.</h2>
-          <p>Gana porque sus equipos comerciales están entrenados para responder más rápido y mejor a los problemas del cliente. MAGMA es un sistema vivo, diseñado para la trinchera.</p>
-        </div>
-        <div>
-           <p class="reveal highlight-text">Reemplazamos horas de teoría que nadie recuerda, por microdosis de 3 minutos diarias conectadas directamente a la operación de tu equipo.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section casos-section" id="casos">
-      <div class="container">
-        <div class="reveal">
-          <span class="kicker">Evidencia Comercial</span>
-          <h2>El impacto se mide en la operación.</h2>
-          <p>Líderes que ya transformaron sus equipos con MAGMA.</p>
-        </div>
-
-        <div class="rauno-grid">
-          <div class="rauno-card reveal magnetic-btn" onclick="openModal('modal-sura')" style="transition-delay: 0.1s;">
-            <h3>SURA</h3>
-            <p>"Metodología práctica y ágil. Han logrado entregar herramientas de aplicación inmediata que generan impacto real..."</p>
-          </div>
-          <div class="rauno-card reveal magnetic-btn" onclick="openModal('modal-team')" style="transition-delay: 0.2s;">
-            <h3>Team Foods</h3>
-            <p>"Magma rompe el paradigma de formación tradicional. Sus microdosis no interrumpen la operación, permitiendo..."</p>
-          </div>
-          <div class="rauno-card reveal magnetic-btn" onclick="openModal('modal-dislicores')" style="transition-delay: 0.3s;">
-            <h3>Dislicores</h3>
-            <p>Implementación a escala con más de 650 personas de la Fuerza de Ventas en 25 ciudades, logrando un engagement masivo.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="form">
-      <div class="container split">
-        <div class="reveal">
-          <span class="kicker">Acceso Restringido</span>
-          <h2>Aplica para un Piloto Medible.</h2>
-          <p>Evaluamos solicitudes para garantizar que la cultura de tu empresa está lista para el aprendizaje vivo.</p>
-        </div>
-
-        <form class="form reveal" id="leadForm" method="POST" action="https://formspree.io/f/TU_ID_AQUI">
-          <div class="field"><label>Nombre</label><input name="nombre" required></div>
-          <div class="field"><label>Email Corporativo</label><input type="email" name="email" required></div>
-          <div class="field">
-            <label>Rol Estratégico</label>
-            <select name="rol" required>
-              <option value="">Selecciona</option>
-              <option>Director Comercial / Revenue</option>
-              <option>Director de RRHH / Cultura</option>
-              <option>CEO / Founder</option>
-            </select>
-          </div>
-          <button class="btn primary full-width magnetic-btn" type="submit" style="margin-top: 10px;">Solicitar Evaluación</button>
-        </form>
-      </div>
-    </section>
-    
-    <footer class="footer">
-      <div class="container">© <span id="year"></span> MAGMA Global</div>
-    </footer>
+    <div style="height: 100px;"></div>
   </main>
 
-  <div class="rauno-modal-overlay" id="mainModal" onclick="closeModal(event)">
-    <div class="rauno-modal-content">
-      <button class="modal-close magnetic-btn" onclick="closeModal(true)">&times;</button>
-      <div id="modalBody"></div>
-    </div>
-  </div>
-
-  <template id="tpl-sura">
-    <span class="kicker" style="margin-bottom: 20px;">Caso de Éxito</span>
-    <h3 style="color: #fff; font-family: Pragmatica, sans-serif; margin-bottom: 20px; font-size: 28px;">SURA</h3>
-    <p style="font-size: 22px; font-style: italic; color: #fff; line-height: 1.4; margin-bottom: 30px;">
-      "Metodología práctica y ágil. Han logrado entregar herramientas de aplicación inmediata que generan impacto real en los resultados comerciales."
-    </p>
-    <div style="border-top: 1px solid var(--stroke); padding-top: 20px;">
-      <h4 style="color: var(--magma-amber); margin: 0;">Juan Camilo B.</h4>
-      <p style="margin: 0; font-size: 13px;">Director de Habilidades y Escuela de Ventas</p>
-    </div>
-  </template>
-
-  <template id="tpl-team">
-    <span class="kicker" style="margin-bottom: 20px;">Caso de Éxito</span>
-    <h3 style="color: #fff; font-family: Pragmatica, sans-serif; margin-bottom: 20px; font-size: 28px;">Team Foods</h3>
-    <p style="font-size: 22px; font-style: italic; color: #fff; line-height: 1.4; margin-bottom: 30px;">
-      "Magma rompe el paradigma de formación tradicional. Sus microdosis no interrumpen la operación, permitiendo que el aprendizaje ocurra sin afectar la meta."
-    </p>
-    <div style="border-top: 1px solid var(--stroke); padding-top: 20px;">
-      <h4 style="color: var(--magma-amber); margin: 0;">Sandra M.</h4>
-      <p style="margin: 0; font-size: 13px;">Gerente Capacitación y Desarrollo</p>
-    </div>
-  </template>
-
-  <template id="tpl-dislicores">
-    <span class="kicker" style="margin-bottom: 20px;">Implementación a Escala</span>
-    <h3 style="color: #fff; font-family: Pragmatica, sans-serif; margin-bottom: 20px; font-size: 28px;">Dislicores</h3>
-    <ul style="color: rgba(226,222,192,0.8); line-height: 2; font-size: 16px; margin-bottom: 30px; padding-left: 20px;">
-      <li><strong>Fuerza de Ventas:</strong> 650 personas activas.</li>
-      <li><strong>Alcance:</strong> +25 ciudades y 8 regionales.</li>
-      <li><strong>Productividad:</strong> Incremento del 92% en métricas de adopción.</li>
-      <li><strong>Interacción:</strong> Solo 3 minutos diarios requeridos por vendedor.</li>
-    </ul>
-  </template>
-
-  <script src="script.js?v=10"></script>
+  <script src="script.js"></script>
 </body>
 </html>
