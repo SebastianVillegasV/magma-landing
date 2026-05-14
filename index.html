@@ -4,37 +4,40 @@
     .magma-bg-container {
       position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; 
     }
+    
     .magma-blob {
-      position: absolute; transform: translateZ(0); 
+      position: absolute; 
+      border-radius: 50%; /* Círculo base para que el gradiente fluya perfecto */
+      transform: translateZ(0); 
     }
     
     .blob-red {
-      top: -10%; left: -10%; width: 65vw; height: 65vw;
-      background: radial-gradient(ellipse at center, rgba(202, 17, 17, 0.35) 0%, rgba(206, 141, 37, 0.1) 45%, transparent 70%);
-      animation: floatRed 25s ease-in-out infinite, morphBlob 12s ease-in-out infinite alternate;
+      /* Hacemos las cajas enormes (80vw) para que el color tenga mucho espacio para morir a 0 */
+      top: -20%; left: -10%; width: 80vw; height: 80vw;
+      /* El truco Anti-Safari: Difuminar hacia rgba(..., 0) en vez de "transparent" */
+      background: radial-gradient(closest-side, rgba(202, 17, 17, 0.30) 0%, rgba(206, 141, 37, 0.08) 50%, rgba(206, 141, 37, 0) 100%);
+      animation: floatRed 25s ease-in-out infinite alternate;
     }
     
     .blob-amber {
-      bottom: -10%; right: -10%; width: 60vw; height: 60vw;
-      background: radial-gradient(ellipse at center, rgba(206, 141, 37, 0.35) 0%, rgba(202, 17, 17, 0.1) 45%, transparent 70%);
-      animation: floatAmber 30s ease-in-out infinite, morphBlob 16s ease-in-out infinite alternate-reverse;
+      bottom: -20%; right: -10%; width: 75vw; height: 75vw;
+      background: radial-gradient(closest-side, rgba(206, 141, 37, 0.30) 0%, rgba(202, 17, 17, 0.08) 50%, rgba(202, 17, 17, 0) 100%);
+      animation: floatAmber 28s ease-in-out infinite alternate-reverse;
     }
     
-    @keyframes morphBlob {
-      0% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; }
-      34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
-      67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
-      100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-    }
-    
+    /* Deformamos la masa estirándola y aplastándola en X y Y para que no se corte jamás */
     @keyframes floatRed {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(20vw, 20vh, 0) scale(1.2); }
+      0% { transform: translate3d(0, 0, 0) scaleX(1) scaleY(1) rotate(0deg); }
+      33% { transform: translate3d(15vw, 10vh, 0) scaleX(1.3) scaleY(0.8) rotate(45deg); }
+      66% { transform: translate3d(-10vw, 20vh, 0) scaleX(0.8) scaleY(1.2) rotate(-20deg); }
+      100% { transform: translate3d(5vw, -5vh, 0) scaleX(1.1) scaleY(0.9) rotate(20deg); }
     }
     
     @keyframes floatAmber {
-      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(-15vw, -15vh, 0) scale(1.15); }
+      0% { transform: translate3d(0, 0, 0) scaleX(1) scaleY(1) rotate(0deg); }
+      33% { transform: translate3d(-10vw, -15vh, 0) scaleX(1.2) scaleY(0.8) rotate(-30deg); }
+      66% { transform: translate3d(15vw, -5vh, 0) scaleX(0.8) scaleY(1.3) rotate(15deg); }
+      100% { transform: translate3d(-5vw, 10vh, 0) scaleX(1.1) scaleY(0.9) rotate(-10deg); }
     }
   </style>
 <head>
