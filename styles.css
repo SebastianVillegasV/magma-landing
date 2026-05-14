@@ -144,7 +144,7 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 }
 
 /* ==========================================
-   TEXTOS SOBRE VIDEO (Misma estética, Fix Safari)
+   TEXTOS SOBRE VIDEO (Estética Unificada y Loop Estricto)
    ========================================== */
 .text-sequence-overlay {
   position: absolute;
@@ -157,72 +157,89 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   pointer-events: none; 
 }
 
+/* Todos los textos 100% idénticos en tamaño, color y espaciado */
 .seq-text {
   position: absolute;
   opacity: 0;
   text-align: center;
   text-transform: uppercase;
   font-family: "Pragmatica", sans-serif;
-  color: #ffffff;
+  color: #ffffff !important; /* Forzamos blanco puro en todos */
   margin: 0;
   padding: 0 20px;
   width: 100%;
   text-shadow: 0 4px 20px rgba(0,0,0,0.8);
   
-  /* === LA ESTÉTICA QUE TE GUSTÓ APLICADA A TODOS === */
+  /* Estética "Créditos Cinematográficos" */
   font-size: clamp(12px, 2vw, 16px);
   letter-spacing: 0.3em;
   line-height: 1.5;
 
-  /* === EL FIX PARA SAFARI (Hardware Acceleration) === */
+  /* Fix Safari */
   -webkit-transform: translate3d(0, 15px, 0);
   transform: translate3d(0, 15px, 0);
   will-change: opacity, transform;
 
-  /* Configuración del loop de 20s */
+  /* Loop estricto de 20s */
   -webkit-animation-duration: 20s;
   animation-duration: 20s;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
 }
 
-/* Asignación de nombres de animación */
 .seq-1 { -webkit-animation-name: animSeq1; animation-name: animSeq1; }
 .seq-2 { -webkit-animation-name: animSeq2; animation-name: animSeq2; }
 .seq-3 { -webkit-animation-name: animSeq3; animation-name: animSeq3; }
 
-/* Texto 1: Aparece al seg 1, se va al seg 5 */
+/* Texto 1: 0s a 5s (Estricto) */
 @-webkit-keyframes animSeq1 {
-  0%, 25%, 100% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
-  5%, 20% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  0% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
+  5% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  20% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  25% { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); } /* Bloqueado hasta el fin del loop */
 }
 @keyframes animSeq1 {
-  0%, 25%, 100% { opacity: 0; transform: translate3d(0, 15px, 0); }
-  5%, 20% { opacity: 1; transform: translate3d(0, 0, 0); }
+  0% { opacity: 0; transform: translate3d(0, 15px, 0); }
+  5% { opacity: 1; transform: translate3d(0, 0, 0); }
+  20% { opacity: 1; transform: translate3d(0, 0, 0); }
+  25% { opacity: 0; transform: translate3d(0, -15px, 0); }
+  100% { opacity: 0; transform: translate3d(0, -15px, 0); }
 }
 
-/* Texto 2: Aparece al seg 6, se va al seg 10 */
+/* Texto 2: 5s a 10s (Estricto) */
 @-webkit-keyframes animSeq2 {
-  0%, 25%, 50%, 100% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
-  30%, 45% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  0%, 25% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
+  30% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  45% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  50% { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); }
 }
 @keyframes animSeq2 {
-  0%, 25%, 50%, 100% { opacity: 0; transform: translate3d(0, 15px, 0); }
-  30%, 45% { opacity: 1; transform: translate3d(0, 0, 0); }
+  0%, 25% { opacity: 0; transform: translate3d(0, 15px, 0); }
+  30% { opacity: 1; transform: translate3d(0, 0, 0); }
+  45% { opacity: 1; transform: translate3d(0, 0, 0); }
+  50% { opacity: 0; transform: translate3d(0, -15px, 0); }
+  100% { opacity: 0; transform: translate3d(0, -15px, 0); }
 }
 
-/* Texto 3: Aparece al seg 11, se va al seg 15 */
+/* Texto 3: 10s a 15s (Estricto) */
 @-webkit-keyframes animSeq3 {
-  0%, 50%, 75%, 100% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
-  55%, 70% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  0%, 50% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
+  55% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  70% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
+  75% { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); }
+  100% { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); }
 }
 @keyframes animSeq3 {
-  0%, 50%, 75%, 100% { opacity: 0; transform: translate3d(0, 15px, 0); }
-  55%, 70% { opacity: 1; transform: translate3d(0, 0, 0); }
+  0%, 50% { opacity: 0; transform: translate3d(0, 15px, 0); }
+  55% { opacity: 1; transform: translate3d(0, 0, 0); }
+  70% { opacity: 1; transform: translate3d(0, 0, 0); }
+  75% { opacity: 0; transform: translate3d(0, -15px, 0); }
+  100% { opacity: 0; transform: translate3d(0, -15px, 0); }
+}
 }
 
 /* Estilo para el texto de abajo */
