@@ -107,80 +107,97 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   transform: scale(1); 
 }
 /* ==========================================
-   HERO CINEMATOGRÁFICO (FULLSCREEN)
+   HERO PANORÁMICO (60vh / 21:9 Look)
    ========================================== */
-.cinematic-hero {
-  position: relative;
+.cinematic-container {
   width: 100%;
-  height: 100svh; /* Ocupa el 100% del alto de la pantalla exacta */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  padding-top: 80px; /* Espacio para el dock */
+  background: var(--magma-black);
 }
 
-/* El video se comporta como un cover de fondo */
-.hero-video-bg {
-  position: absolute;
-  inset: 0;
+.video-window {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Altura reducida para ser más apaisado */
+  overflow: hidden;
+  border-top: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+}
+
+.hero-video-panoramic {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
-  filter: brightness(0.7) contrast(1.1); /* Oscurece un 30% el video original */
+  filter: brightness(0.6) saturate(1.2);
 }
 
-/* Viñeta: Oscurece los bordes para centrar la mirada */
-.hero-overlay {
+.video-overlay-tint {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  background: radial-gradient(circle at center, rgba(15,15,14,0.1) 0%, rgba(15,15,14,0.85) 100%);
+  background: linear-gradient(to bottom, rgba(15,15,14,0.4), rgba(15,15,14,0.1) 50%, rgba(15,15,14,0.4));
+  pointer-events: none;
 }
 
-/* Contenedor central de los textos */
-.hero-content {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  max-width: 1200px;
-  padding: 0 24px;
+/* ==========================================
+   SECUENCIA DE TEXTOS (Loop 20 Segundos)
+   ========================================== */
+.text-sequence-container {
+  position: absolute;
+  inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  z-index: 10;
 }
 
-/* TEXTO 1: Somos el futuro... */
-.hero-kicker {
-  display: inline-block;
-  font-family: system-ui, sans-serif;
-  font-size: 13px;
+.seq-text, .seq-logo {
+  position: absolute;
+  opacity: 0;
+  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.25em; /* Mucho espacio entre letras, estilo cine */
-  color: var(--magma-bone);
-  opacity: 0.8;
-  margin-bottom: 30px;
-}
-
-/* TEXTO 2: Equipos Potenciados... (Pragmatica) */
-.hero-title {
-  font-family: "Pragmatica", sans-serif; /* Forzamos la tipografía de marca */
-  font-size: clamp(40px, 8vw, 100px); /* Escalable automáticamente */
-  line-height: 0.95;
-  color: #ffffff;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  letter-spacing: -0.02em;
-}
-
-/* TEXTO 3: La constancia crea... (Pragmatica) */
-.hero-subtitle {
   font-family: "Pragmatica", sans-serif;
-  font-size: clamp(16px, 2.5vw, 24px);
-  color: var(--magma-amber); /* El color institucional */
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }
+
+.seq-text { font-size: clamp(18px, 3vw, 42px); color: #fff; width: 80%; line-height: 1.1; }
+
+/* Tiempos de Animación (Total 20s) */
+
+/* Texto 1: 0-5s (Aparece al segundo 1, se va al 4.5) */
+.seq-1 { animation-name: textSequence1; font-size: 14px; letter-spacing: 0.3em; }
+@keyframes textSequence1 {
+  0%, 25%, 100% { opacity: 0; transform: translateY(10px); }
+  5%, 20% { opacity: 1; transform: translateY(0); }
+}
+
+/* Texto 2: 5-10s */
+.seq-2 { animation-name: textSequence2; font-size: clamp(32px, 5vw, 72px); }
+@keyframes textSequence2 {
+  0%, 25%, 50%, 100% { opacity: 0; transform: translateY(10px); }
+  30%, 45% { opacity: 1; transform: translateY(0); }
+}
+
+/* Texto 3: 10-15s */
+.seq-3 { animation-name: textSequence3; color: var(--magma-amber); }
+@keyframes textSequence3 {
+  0%, 50%, 75%, 100% { opacity: 0; transform: translateY(10px); }
+  55%, 70% { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo: 15-20s */
+.seq-logo { width: 80px; height: auto; animation-name: logoSequence; }
+@keyframes logoSequence {
+  0%, 75%, 100% { opacity: 0; transform: scale(0.9); }
+  80%, 95% { opacity: 1; transform: scale(1); }
+}
+
+/* Estilo para el texto de abajo */
+.text-center { text-align: center; }
+.pragmatica-bold { font-family: "Pragmatica", sans-serif; font-weight: bold; margin-bottom: 24px; }
+.large-p { font-size: 20px; line-height: 1.5; max-width: 800px; margin: 0 auto; color: rgba(226,222,192,0.8); }
 
 /* ==========================================
    UX: MASK REVEAL (Efecto de aparición)
