@@ -70,24 +70,42 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 .dock-item:hover::before { opacity: 1; transform: translateY(0); }
 
 /* ==========================================
-   Animación Logo a Llama (TAMAÑO AUMENTADO)
+   Animación Logo a Llama (Corrección de Overlap)
    ========================================== */
+.logo-dock-item {
+  position: relative; /* Mantiene a los hijos contenidos en el centro */
+}
+
+/* Estado Normal: Isologo Visible, Llama Oculta */
 .logo-dock-item .dock-logo { 
-  width: 36px; /* Antes estaba en 22px. Esto lo hace casi del tamaño del botón */
+  width: 38px; 
   height: auto; 
-  transition: all 0.3s ease; 
   position: absolute; 
+  opacity: 1 !important;
+  transform: scale(1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
 }
 
-.logo-dock-item:hover .dock-logo { opacity: 0; transform: scale(0.5); }
-.logo-dock-item:hover .dock-flame { opacity: 1; transform: scale(1); }
-
-/* CTA Primario en Dock */
-.dock-item.primary { 
-  background: var(--magma-amber); color: #111; font-weight: bold; 
-  width: auto; padding: 0 24px; border-radius: 99px; letter-spacing: 0.05em; font-size: 13px;
+.logo-dock-item .dock-flame { 
+  width: 24px !important; /* Tamaño ideal para la llama */
+  height: 24px !important; 
+  position: absolute; 
+  opacity: 0 !important; /* Oculta totalmente la llama por defecto */
+  transform: scale(0.5); 
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+  pointer-events: none; /* Evita que la llama interfiera con el clic */
 }
 
+/* Estado Hover: Isologo se encoge/oculta, Llama crece/aparece */
+.logo-dock-item:hover .dock-logo { 
+  opacity: 0 !important; 
+  transform: scale(0.5); 
+}
+
+.logo-dock-item:hover .dock-flame { 
+  opacity: 1 !important; 
+  transform: scale(1); 
+}
 /* ==========================================
    BENTO GRID HERO
    ========================================== */
