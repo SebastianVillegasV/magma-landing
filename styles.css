@@ -106,21 +106,20 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   opacity: 1 !important; 
   transform: scale(1); 
 }
-/* ==========================================
-   CONTENEDOR PANORÁMICO (21:9 FEEL)
-   ========================================== */
+/* ELIMINAMOS LAS FRANJAS NEGRAS */
 .cinematic-container {
   width: 100%;
-  background: var(--magma-black);
-  padding: 100px 0 60px; /* Margen superior para el dock */
+  background: #000;
+  padding: 0; /* Quitamos los 120px y 60px que causaban las franjas */
+  margin-top: 80px; /* Solo dejamos el espacio necesario para que no tape el dock */
 }
 
-/* EL RECORTE (CROP) */
 .video-window {
   position: relative;
   width: 100%;
-  aspect-ratio: 21 / 9; /* Esto define el look ultra-wide de cine */
-  max-height: 50vh; 
+  /* Mantenemos el ratio de cine */
+  aspect-ratio: 21 / 9; 
+  max-height: 55vh; 
   overflow: hidden;
   background: #000;
   display: flex;
@@ -132,7 +131,8 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   position: absolute;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Aquí es donde ocurre el crop arriba y abajo */
+  /* Hacemos el crop real para que la imagen llene la ventana */
+  object-fit: cover; 
   object-position: center;
   z-index: 1;
 }
@@ -337,4 +337,11 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   .metrics-grid { grid-template-columns: 1fr; }
   .mac-dock-wrapper { bottom: 20px; top: auto; }
   .dock-item::before { display: none; }
+}
+
+/* --- ESPACIADO PARA EL TEXTO DE INTRODUCCIÓN --- */
+.intro-text {
+  padding-top: 80px; 
+  padding-bottom: 80px;
+  background-color: var(--magma-black); /* Para asegurar que el fondo sea el institucional */
 }
