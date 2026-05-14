@@ -107,31 +107,104 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   transform: scale(1); 
 }
 /* ==========================================
-   BENTO GRID HERO
+   HERO CINEMATOGRÁFICO (FULLSCREEN)
    ========================================== */
-.container { max-width: 1080px; margin:0 auto; padding:0 24px; }
-.section { padding: 120px 0; }
-.kicker { display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color: var(--magma-amber); margin-bottom:16px; font-weight:700; border: 1px solid rgba(206,141,37,0.3); padding: 6px 14px; border-radius: 99px;}
-h1 { font-family: "Pragmatica", "Arial Black", sans-serif; font-size: clamp(32px, 4vw, 56px); line-height: 1.05; margin-bottom: 20px;}
-p { color: rgba(226,222,192,.7); font-size: 16px; margin-bottom: 16px; max-width: 65ch; }
-
-.btn {
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:16px 32px; border-radius:99px; border:1px solid var(--stroke);
-  color: var(--magma-bone); font-weight:600; text-transform:uppercase; font-size:13px; letter-spacing:0.05em; text-decoration: none;
-  transition: all 0.3s ease;
+.cinematic-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh; /* Ocupa el 100% del alto de la pantalla exacta */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-.btn.primary { background: var(--magma-amber); color: #111; border-color: transparent; }
 
-.hero-bento { padding: 140px 0 60px; }
-.bento-grid-hero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-
-.bento-card {
-  background: var(--glass-bg); 
-  -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px);
-  border: 1px solid var(--stroke); border-radius: 24px; padding: 40px;
-  position: relative; overflow: hidden; transform: translateZ(0);
+/* El video se comporta como un cover de fondo */
+.hero-video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.7) contrast(1.1); /* Oscurece un 30% el video original */
 }
+
+/* Viñeta: Oscurece los bordes para centrar la mirada */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle at center, rgba(15,15,14,0.1) 0%, rgba(15,15,14,0.85) 100%);
+}
+
+/* Contenedor central de los textos */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 1200px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TEXTO 1: Somos el futuro... */
+.hero-kicker {
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em; /* Mucho espacio entre letras, estilo cine */
+  color: var(--magma-bone);
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* TEXTO 2: Equipos Potenciados... (Pragmatica) */
+.hero-title {
+  font-family: "Pragmatica", sans-serif; /* Forzamos la tipografía de marca */
+  font-size: clamp(40px, 8vw, 100px); /* Escalable automáticamente */
+  line-height: 0.95;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+/* TEXTO 3: La constancia crea... (Pragmatica) */
+.hero-subtitle {
+  font-family: "Pragmatica", sans-serif;
+  font-size: clamp(16px, 2.5vw, 24px);
+  color: var(--magma-amber); /* El color institucional */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ==========================================
+   UX: MASK REVEAL (Efecto de aparición)
+   ========================================== */
+.mask-title { display: flex; flex-direction: column; gap: 4px; }
+.mask-line { display: block; overflow: hidden; padding-bottom: 5px; }
+.mask-line > span, .mask-line > p, .mask-line > h1 {
+  display: block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.4, 1), opacity 0.8s ease;
+}
+
+.reveal.active .mask-line > span,
+.reveal.active .mask-line > p,
+.reveal.active .mask-line > h1 { 
+  transform: translateY(0); 
+  opacity: 1; 
+}
+
+/* Cascada de tiempos para que aparezcan en orden */
+.reveal.active .mask-line:nth-child(1) > span { transition-delay: 0.1s; }
+.reveal.active .mask-line:nth-child(2) > span { transition-delay: 0.2s; }
+.reveal.active .mask-line:nth-child(3) > span { transition-delay: 0.3s; }
 /* ==========================================
    UX: MASK REVEAL (Efecto Editorial)
    ========================================== */
