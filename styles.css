@@ -37,35 +37,59 @@ input, select, textarea { cursor: auto; }
 body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206,141,37,0.1); border-color: transparent; }
 
 /* ==========================================
-   UX: DOCK FLOTANTE (Optimizado Safari)
+   UX: DOCK FLOTANTE (Alargado y Animado)
    ========================================== */
 .mac-dock-wrapper { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000; }
+
+/* Dock más largo y con más respiro (white space) */
 .mac-dock {
-  display: flex; gap: 8px; align-items: center; padding: 10px 14px;
+  display: flex; gap: 18px; align-items: center; padding: 12px 20px;
   background: rgba(30,28,24, 0.65); 
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(226,222,192, 0.08); border-radius: 999px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+
+/* Ítems un poco más amplios para el área de clic */
 .dock-item {
   position: relative; display: flex; align-items: center; justify-content: center;
-  width: 45px; height: 45px; border-radius: 50%;
+  width: 48px; height: 48px; border-radius: 50%;
   background: rgba(255,255,255,0.02); color: var(--magma-bone);
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: none;
   text-decoration: none; border: 1px solid transparent;
 }
-.dock-item svg { width: 20px; height: 20px; fill: currentColor; }
+.dock-item svg { width: 22px; height: 22px; fill: currentColor; }
+
+/* Tooltips */
 .dock-item::before {
-  content: attr(data-tooltip); position: absolute; bottom: -35px;
-  background: rgba(20,20,18,0.9); padding: 4px 10px; border-radius: 6px;
-  font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+  content: attr(data-tooltip); position: absolute; bottom: -38px;
+  background: rgba(20,20,18,0.9); padding: 5px 12px; border-radius: 6px;
+  font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600;
   opacity: 0; transform: translateY(-10px); transition: all 0.2s ease;
   pointer-events: none; white-space: nowrap; border: 1px solid var(--stroke);
 }
-.dock-item:hover { transform: scale(1.35) translateY(2px); z-index: 2; border-color: rgba(206,141,37,0.4); background: rgba(206,141,37,0.1); margin: 0 10px; color: var(--magma-amber); }
+
+/* Efecto Magnificación al hacer Hover */
+.dock-item:hover { 
+  transform: scale(1.3) translateY(2px); z-index: 2; 
+  border-color: rgba(206,141,37,0.4); background: rgba(206,141,37,0.1); 
+  margin: 0 12px; color: var(--magma-amber); 
+}
 .dock-item:hover::before { opacity: 1; transform: translateY(0); }
-.dock-item:has(+ .dock-item:hover), .dock-item:hover + .dock-item { transform: scale(1.15); margin: 0 5px; }
-.dock-item.primary { background: var(--magma-amber); color: #111; font-weight: bold; }
+.dock-item:has(+ .dock-item:hover), .dock-item:hover + .dock-item { transform: scale(1.15); margin: 0 6px; }
+
+/* Animación Isologo a Llama */
+.logo-dock-item .dock-logo { width: 22px; height: auto; transition: all 0.3s ease; }
+.logo-dock-item .dock-flame { position: absolute; opacity: 0; transition: all 0.3s ease; }
+
+.logo-dock-item:hover .dock-logo { opacity: 0; transform: scale(0.5); }
+.logo-dock-item:hover .dock-flame { opacity: 1; transform: scale(1); }
+
+/* CTA Primario (Activar) */
+.dock-item.primary { 
+  background: var(--magma-amber); color: #111; font-weight: bold; 
+  width: auto; padding: 0 24px; border-radius: 99px; letter-spacing: 0.05em; font-size: 13px;
+}
 
 /* ==========================================
    TIPOGRAFÍA Y ESTRUCTURA GENERAL
