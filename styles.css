@@ -69,9 +69,15 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 }
 .dock-item:hover::before { opacity: 1; transform: translateY(0); }
 
-/* Animación Logo a Llama */
-.logo-dock-item .dock-logo { width: 22px; height: auto; transition: all 0.3s ease; position: absolute; }
-.logo-dock-item .dock-flame { opacity: 0; transition: all 0.3s ease; transform: scale(0.5); position: absolute; }
+/* ==========================================
+   Animación Logo a Llama (TAMAÑO AUMENTADO)
+   ========================================== */
+.logo-dock-item .dock-logo { 
+  width: 36px; /* Antes estaba en 22px. Esto lo hace casi del tamaño del botón */
+  height: auto; 
+  transition: all 0.3s ease; 
+  position: absolute; 
+}
 
 .logo-dock-item:hover .dock-logo { opacity: 0; transform: scale(0.5); }
 .logo-dock-item:hover .dock-flame { opacity: 1; transform: scale(1); }
