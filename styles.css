@@ -144,16 +144,8 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 }
 
 /* ==========================================
-   TEXTOS SOBRE VIDEO (CAPA SUPERIOR)
+   TEXTOS SOBRE VIDEO (Misma estética, Fix Safari)
    ========================================== */
-.video-window {
-  position: relative; /* ESTO ES VITAL: Ancla los textos al video */
-  width: 100%;
-  height: 60vh; /* Mantiene tu formato panorámico */
-  background: #000;
-  overflow: hidden;
-}
-
 .text-sequence-overlay {
   position: absolute;
   top: 0; left: 0;
@@ -161,8 +153,8 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50; /* Forzamos a que esté por encima del video */
-  pointer-events: none; /* Para que no bloquee clics al video si los hubiera */
+  z-index: 50; 
+  pointer-events: none; 
 }
 
 .seq-text {
@@ -174,49 +166,63 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
   color: #ffffff;
   margin: 0;
   padding: 0 20px;
-  width: 100%; /* Asegura que el texto se centre bien */
-  text-shadow: 0 4px 20px rgba(0,0,0,0.8); /* Sombra para que lea perfecto sobre lava */
+  width: 100%;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
   
-  /* Motor de animación: 20 segundos infinitos */
+  /* === LA ESTÉTICA QUE TE GUSTÓ APLICADA A TODOS === */
+  font-size: clamp(12px, 2vw, 16px);
+  letter-spacing: 0.3em;
+  line-height: 1.5;
+
+  /* === EL FIX PARA SAFARI (Hardware Acceleration) === */
+  -webkit-transform: translate3d(0, 15px, 0);
+  transform: translate3d(0, 15px, 0);
+  will-change: opacity, transform;
+
+  /* Configuración del loop de 20s */
+  -webkit-animation-duration: 20s;
   animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
+  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
 
-/* Texto 1: (0 a 5 seg) */
-.seq-1 {
-  animation-name: seq1;
-  font-size: clamp(12px, 2vw, 16px);
-  letter-spacing: 0.3em;
+/* Asignación de nombres de animación */
+.seq-1 { -webkit-animation-name: animSeq1; animation-name: animSeq1; }
+.seq-2 { -webkit-animation-name: animSeq2; animation-name: animSeq2; }
+.seq-3 { -webkit-animation-name: animSeq3; animation-name: animSeq3; }
+
+/* Texto 1: Aparece al seg 1, se va al seg 5 */
+@-webkit-keyframes animSeq1 {
+  0%, 25%, 100% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
+  5%, 20% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
 }
-@keyframes seq1 {
-  0%, 25%, 100% { opacity: 0; transform: translateY(15px); }
-  5%, 20% { opacity: 1; transform: translateY(0); }
+@keyframes animSeq1 {
+  0%, 25%, 100% { opacity: 0; transform: translate3d(0, 15px, 0); }
+  5%, 20% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* Texto 2: (5 a 10 seg) */
-.seq-2 {
-  animation-name: seq2;
-  font-size: clamp(28px, 5vw, 64px);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+/* Texto 2: Aparece al seg 6, se va al seg 10 */
+@-webkit-keyframes animSeq2 {
+  0%, 25%, 50%, 100% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
+  30%, 45% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
 }
-@keyframes seq2 {
-  0%, 25%, 50%, 100% { opacity: 0; transform: translateY(15px); }
-  30%, 45% { opacity: 1; transform: translateY(0); }
+@keyframes animSeq2 {
+  0%, 25%, 50%, 100% { opacity: 0; transform: translate3d(0, 15px, 0); }
+  30%, 45% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* Texto 3: (10 a 15 seg) */
-.seq-3 {
-  animation-name: seq3;
-  font-size: clamp(16px, 3vw, 24px);
-  color: var(--magma-amber);
-  letter-spacing: 0.15em;
+/* Texto 3: Aparece al seg 11, se va al seg 15 */
+@-webkit-keyframes animSeq3 {
+  0%, 50%, 75%, 100% { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); }
+  55%, 70% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); }
 }
-@keyframes seq3 {
-  0%, 50%, 75%, 100% { opacity: 0; transform: translateY(15px); }
-  55%, 70% { opacity: 1; transform: translateY(0); }
+@keyframes animSeq3 {
+  0%, 50%, 75%, 100% { opacity: 0; transform: translate3d(0, 15px, 0); }
+  55%, 70% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 /* Estilo para el texto de abajo */
