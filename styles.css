@@ -184,57 +184,63 @@ p { color: rgba(226,222,192,.7); font-size: 16px; margin-bottom: 16px; max-width
 
 
 /* ==========================================
-   UX: FONDO MAGMA ANIMADO (Glassmorphism blobs)
+   UX: FONDO MAGMA ANIMADO (Deforme, Mezclado y Safari-Safe)
    ========================================== */
 .magma-bg-container {
   position: fixed; 
   inset: 0; 
-  z-index: -1; /* Lo manda al fondo de toda la web */
+  z-index: -1; 
   overflow: hidden;
-  pointer-events: none; /* No bloquea los clics */
+  pointer-events: none; 
 }
 
-/* Base de los círculos de luz */
+/* La base con aceleración 3D */
 .magma-blob {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(120px); 
-  -webkit-filter: blur(120px); /* Para Safari */
-  opacity: 0.20; /* Ajustado para que se note bien el magma */
-  transform: translateZ(0); /* Aceleración por hardware (GPU) */
-  will-change: transform; 
+  transform: translateZ(0); 
 }
 
-/* La Mancha Roja (Arriba) */
+/* La Mancha Principal (Arriba) */
 .blob-red {
-  top: 10%;
-  left: 20%;
-  width: 45vw;
-  height: 45vw;
-  background: var(--magma-red);
-  animation: floatRed 25s ease-in-out infinite;
+  top: -10%;
+  left: -10%;
+  width: 65vw;
+  height: 55vw;
+  /* El truco de color: Corazón Rojo intenso, transicionando a un Ámbar muy suave antes de desaparecer */
+  background: radial-gradient(ellipse at center, rgba(202, 17, 17, 0.22) 0%, rgba(206, 141, 37, 0.08) 45%, transparent 70%);
+  /* Combinamos la flotación con la deformación amorfa */
+  animation: floatRed 25s ease-in-out infinite, morphBlob 15s ease-in-out infinite alternate;
 }
 
-/* La Mancha Ámbar (Abajo) */
+/* La Mancha Secundaria (Abajo) */
 .blob-amber {
-  bottom: 10%;
-  right: 10%;
-  width: 40vw;
-  height: 40vw;
-  background: var(--magma-amber);
-  animation: floatAmber 30s ease-in-out infinite;
+  bottom: -10%;
+  right: -10%;
+  width: 60vw;
+  height: 65vw;
+  /* El truco de color: Corazón Ámbar intenso, transicionando a un Rojo suave antes de desaparecer */
+  background: radial-gradient(ellipse at center, rgba(206, 141, 37, 0.22) 0%, rgba(202, 17, 17, 0.08) 45%, transparent 70%);
+  /* Combinamos la flotación con la deformación amorfa en reversa */
+  animation: floatAmber 30s ease-in-out infinite, morphBlob 20s ease-in-out infinite alternate-reverse;
 }
 
-/* Animaciones matemáticas para el movimiento fluido */
+/* LA MAGIA: Deforma el círculo para que parezca una gota de lava orgánica */
+@keyframes morphBlob {
+  0% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; }
+  34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+  67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+  100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+}
+
+/* Rutas de flotación más amplias para que los colores se crucen */
 @keyframes floatRed {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-  25% { transform: translate3d(15vw, -10vh, 0) scale(1.3) rotate(45deg); }
-  50% { transform: translate3d(-5vw, 5vh, 0) scale(0.8) rotate(-45deg); }
-  75% { transform: translate3d(10vw, 15vh, 0) scale(1.1) rotate(20deg); }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate3d(15vw, 15vh, 0) rotate(15deg) scale(1.1); }
+  66% { transform: translate3d(-5vw, 25vh, 0) rotate(-10deg) scale(0.9); }
 }
 
 @keyframes floatAmber {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-  33% { transform: translate3d(-10vw, 15vh, 0) scale(1.2) rotate(-30deg); }
-  66% { transform: translate3d(10vw, -5vh, 0) scale(0.9) rotate(30deg); }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate3d(-15vw, -15vh, 0) rotate(-15deg) scale(1.15); }
+  66% { transform: translate3d(10vw, -10vh, 0) rotate(10deg) scale(0.85); }
 }
