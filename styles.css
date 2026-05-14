@@ -144,69 +144,88 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 }
 
 /* ==========================================
-   TEXTOS SOBRE VIDEO (FIX SAFARI "GHOSTING")
+   TEXTOS SOBRE VIDEO (VERSION FINAL 100% STABLE)
    ========================================== */
+.text-sequence-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100; /* Prioridad máxima */
+  pointer-events: none;
+}
+
 .seq-text {
   position: absolute;
-  top: 50%; /* Centrado absoluto vertical */
-  left: 50%;
-  transform: translate(-50%, -50%) !important; /* Estático en el centro */
   opacity: 0;
+  margin: 0;
+  padding: 0 20px;
+  width: 100%;
   text-align: center;
   text-transform: uppercase;
   font-family: "Pragmatica", sans-serif;
   color: #ffffff !important;
-  width: 100%;
-  padding: 0 20px;
+  
+  /* Estética minimalista unificada */
   font-size: clamp(12px, 2vw, 15px);
   letter-spacing: 0.3em;
   line-height: 1.5;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-  pointer-events: none;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.5);
 
-  /* Fix Safari para capas */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-
+  /* Motor de animación sincronizado a 20s */
   animation-duration: 20s;
   animation-iteration-count: infinite;
-  animation-timing-function: linear; /* Lineal es más estable para loops */
+  animation-timing-function: linear;
+  -webkit-animation-duration: 20s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
-/* --- TEXTO 1: 0s a 5s --- */
-@keyframes animSeq1 {
+/* Asignación de nombres */
+.st-1 { animation-name: kf-1; -webkit-animation-name: kf-1; }
+.st-2 { animation-name: kf-2; -webkit-animation-name: kf-2; }
+.st-3 { animation-name: kf-3; -webkit-animation-name: kf-3; }
+
+/* MATEMÁTICA DE TIEMPOS (Loop de 20s):
+   Texto 1: 0s - 5s  (0% a 25%)
+   Texto 2: 5s - 10s (25% a 50%)
+   Texto 3: 10s - 15s (50% a 75%)
+   SILENCIO: 15s - 20s (75% a 100%) -> PARA TU LOGO
+*/
+
+@keyframes kf-1 {
   0% { opacity: 0; }
-  5%, 20% { opacity: 1; }
-  25%, 100% { opacity: 0; }
+  2% { opacity: 0; } /* Margen de seguridad para el salto del loop */
+  7% { opacity: 1; } /* Aparece en 1s */
+  18% { opacity: 1; } /* Se mantiene hasta los 4s */
+  23% { opacity: 0; } /* Desaparece al llegar a los 5s */
+  100% { opacity: 0; } /* Muerto el resto del tiempo */
 }
-@-webkit-keyframes animSeq1 {
-  0% { opacity: 0; }
-  5%, 20% { opacity: 1; }
-  25%, 100% { opacity: 0; }
-}
-
-/* --- TEXTO 2: 5s a 10s --- */
-@keyframes animSeq2 {
-  0%, 25% { opacity: 0; }
-  30%, 45% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-@-webkit-keyframes animSeq2 {
-  0%, 25% { opacity: 0; }
-  30%, 45% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+@-webkit-keyframes kf-1 {
+  0% { opacity: 0; } 2% { opacity: 0; } 7% { opacity: 1; } 18% { opacity: 1; } 23% { opacity: 0; } 100% { opacity: 0; }
 }
 
-/* --- TEXTO 3: 10s a 15s --- */
-@keyframes animSeq3 {
-  0%, 50% { opacity: 0; }
-  55%, 70% { opacity: 1; }
-  75%, 100% { opacity: 0; }
+@keyframes kf-2 {
+  0%, 25% { opacity: 0; } /* Muerto los primeros 5s */
+  32% { opacity: 1; } /* Aparece al seg 6.5 */
+  43% { opacity: 1; } /* Se mantiene hasta el seg 8.5 */
+  48% { opacity: 0; } /* Desaparece al seg 10 */
+  100% { opacity: 0; }
 }
-@-webkit-keyframes animSeq3 {
-  0%, 50% { opacity: 0; }
-  55%, 70% { opacity: 1; }
-  75%, 100% { opacity: 0; }
+@-webkit-keyframes kf-2 {
+  0%, 25% { opacity: 0; } 32% { opacity: 1; } 43% { opacity: 1; } 48% { opacity: 0; } 100% { opacity: 0; }
+}
+
+@keyframes kf-3 {
+  0%, 50% { opacity: 0; } /* Muerto los primeros 10s */
+  57% { opacity: 1; } /* Aparece al seg 11.5 */
+  68% { opacity: 1; } /* Se mantiene hasta el seg 13.5 */
+  73% { opacity: 0; } /* Desaparece al seg 15.5 */
+  100% { opacity: 0; } /* SILENCIO TOTAL HASTA EL FINAL */
+}
+@-webkit-keyframes kf-3 {
+  0%, 50% { opacity: 0; } 57% { opacity: 1; } 68% { opacity: 1; } 73% { opacity: 0; } 100% { opacity: 0; }
 }
 
 /* Estilo para el texto de abajo */
