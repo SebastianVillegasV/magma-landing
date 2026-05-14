@@ -144,101 +144,69 @@ body.hovering .cursor-follower { width: 50px; height: 50px; background: rgba(206
 }
 
 /* ==========================================
-   TEXTOS SOBRE VIDEO (Estética Unificada y Loop Estricto)
+   TEXTOS SOBRE VIDEO (FIX SAFARI "GHOSTING")
    ========================================== */
-.text-sequence-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50; 
-  pointer-events: none; 
-}
-
-/* Todos los textos 100% idénticos en tamaño, color y espaciado */
 .seq-text {
   position: absolute;
+  top: 50%; /* Centrado absoluto vertical */
+  left: 50%;
+  transform: translate(-50%, -50%) !important; /* Estático en el centro */
   opacity: 0;
   text-align: center;
   text-transform: uppercase;
   font-family: "Pragmatica", sans-serif;
-  color: #ffffff !important; /* Forzamos blanco puro en todos */
-  margin: 0;
-  padding: 0 20px;
+  color: #ffffff !important;
   width: 100%;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-  
-  /* Estética "Créditos Cinematográficos" */
-  font-size: clamp(12px, 2vw, 16px);
+  padding: 0 20px;
+  font-size: clamp(12px, 2vw, 15px);
   letter-spacing: 0.3em;
   line-height: 1.5;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  pointer-events: none;
 
-  /* Fix Safari */
-  -webkit-transform: translate3d(0, 15px, 0);
-  transform: translate3d(0, 15px, 0);
-  will-change: opacity, transform;
+  /* Fix Safari para capas */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
-  /* Loop estricto de 20s */
-  -webkit-animation-duration: 20s;
   animation-duration: 20s;
-  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: linear; /* Lineal es más estable para loops */
 }
 
-.seq-1 { -webkit-animation-name: animSeq1; animation-name: animSeq1; }
-.seq-2 { -webkit-animation-name: animSeq2; animation-name: animSeq2; }
-.seq-3 { -webkit-animation-name: animSeq3; animation-name: animSeq3; }
-
-/* Texto 1: 0s a 5s (Botón Nuclear de Visibilidad) */
-@-webkit-keyframes animSeq1 {
-  0%       { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: hidden; }
-  1%       { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: visible; }
-  5%, 20%  { opacity: 1; -webkit-transform: translate3d(0, 0, 0); visibility: visible; }
-  24%      { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); visibility: visible; }
-  25%, 100%{ opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: hidden; }
-}
+/* --- TEXTO 1: 0s a 5s --- */
 @keyframes animSeq1 {
-  0%       { opacity: 0; transform: translate3d(0, 15px, 0); visibility: hidden; }
-  1%       { opacity: 0; transform: translate3d(0, 15px, 0); visibility: visible; }
-  5%, 20%  { opacity: 1; transform: translate3d(0, 0, 0); visibility: visible; }
-  24%      { opacity: 0; transform: translate3d(0, -15px, 0); visibility: visible; }
-  25%, 100%{ opacity: 0; transform: translate3d(0, 15px, 0); visibility: hidden; }
+  0% { opacity: 0; }
+  5%, 20% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+@-webkit-keyframes animSeq1 {
+  0% { opacity: 0; }
+  5%, 20% { opacity: 1; }
+  25%, 100% { opacity: 0; }
 }
 
-/* Texto 2: 5s a 10s */
-@-webkit-keyframes animSeq2 {
-  0%, 24%  { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: hidden; }
-  25%      { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: visible; }
-  30%, 45% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); visibility: visible; }
-  49%      { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); visibility: visible; }
-  50%, 100%{ opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: hidden; }
-}
+/* --- TEXTO 2: 5s a 10s --- */
 @keyframes animSeq2 {
-  0%, 24%  { opacity: 0; transform: translate3d(0, 15px, 0); visibility: hidden; }
-  25%      { opacity: 0; transform: translate3d(0, 15px, 0); visibility: visible; }
-  30%, 45% { opacity: 1; transform: translate3d(0, 0, 0); visibility: visible; }
-  49%      { opacity: 0; transform: translate3d(0, -15px, 0); visibility: visible; }
-  50%, 100%{ opacity: 0; transform: translate3d(0, 15px, 0); visibility: hidden; }
+  0%, 25% { opacity: 0; }
+  30%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@-webkit-keyframes animSeq2 {
+  0%, 25% { opacity: 0; }
+  30%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
-/* Texto 3: 10s a 15s */
-@-webkit-keyframes animSeq3 {
-  0%, 49%  { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: hidden; }
-  50%      { opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: visible; }
-  55%, 70% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); visibility: visible; }
-  74%      { opacity: 0; -webkit-transform: translate3d(0, -15px, 0); visibility: visible; }
-  75%, 100%{ opacity: 0; -webkit-transform: translate3d(0, 15px, 0); visibility: hidden; }
-}
+/* --- TEXTO 3: 10s a 15s --- */
 @keyframes animSeq3 {
-  0%, 49%  { opacity: 0; transform: translate3d(0, 15px, 0); visibility: hidden; }
-  50%      { opacity: 0; transform: translate3d(0, 15px, 0); visibility: visible; }
-  55%, 70% { opacity: 1; transform: translate3d(0, 0, 0); visibility: visible; }
-  74%      { opacity: 0; transform: translate3d(0, -15px, 0); visibility: visible; }
-  75%, 100%{ opacity: 0; transform: translate3d(0, 15px, 0); visibility: hidden; }
+  0%, 50% { opacity: 0; }
+  55%, 70% { opacity: 1; }
+  75%, 100% { opacity: 0; }
+}
+@-webkit-keyframes animSeq3 {
+  0%, 50% { opacity: 0; }
+  55%, 70% { opacity: 1; }
+  75%, 100% { opacity: 0; }
 }
 
 /* Estilo para el texto de abajo */
