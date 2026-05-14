@@ -4,64 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MAGMA — La constancia crea fuerza</title>
-  <meta name="description" content="Entrenamiento vivo y medible para equipos comerciales.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <div class="custom-cursor"></div>
-  <div class="cursor-follower"></div>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">MAGMA</div>
+      <nav class="nav-links">
+        <a href="#metodologia">Metodología</a>
+        <a href="#casos">Casos de Éxito</a>
+        <a href="#form" class="btn-small">Aplicar a Piloto</a>
+      </nav>
+    </div>
+  </header>
 
-  <div class="mac-dock-wrapper">
-    <nav class="mac-dock">
-      <a href="#inicio" class="dock-item" data-tooltip="Inicio">
-        <svg viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5l6 4.5v9h-12v-9l6-4.5z"/></svg>
-      </a>
-      <a href="#metodologia" class="dock-item" data-tooltip="Método">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      </a>
-      <a href="#casos" class="dock-item" data-tooltip="Casos">
-        <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 19a2 2 0 0 1-2 2h-4v-4h6v2zM3 19a2 2 0 0 0 2 2h4v-4H3v2z"/></svg>
-      </a>
-      <a href="#form" class="dock-item primary magnetic-btn" data-tooltip="Piloto">Aplicar</a>
-    </nav>
-  </div>
-
-  <main id="main-content">
-    <div id="inicio"></div>
-    
-    <section class="section hero-bento">
+  <main>
+    <section class="section hero-section">
       <div class="container">
-        <div class="bento-grid-hero">
+        <div class="bento-grid">
           
-          <div class="bento-card main-val spotlight-card reveal">
+          <div class="bento-card main-card">
             <span class="kicker">Aprendizaje en Movimiento</span>
             <h1>Conocimiento que se traduce en acción.</h1>
-            <p>MAGMA transforma la capacitación pasiva en un sistema de alto rendimiento. Reemplazamos horas de teoría por microdosis conectadas a la operación real.</p>
-            <div class="btn-group">
-              <a href="#form" class="btn primary magnetic-btn">Iniciar Piloto Medible</a>
-            </div>
+            <p>MAGMA transforma la capacitación pasiva en un sistema de alto rendimiento integrado a la operación.</p>
+            <a href="#form" class="btn primary">Iniciar Piloto Medible</a>
           </div>
 
-          <div class="bento-card video-card reveal" style="transition-delay: 0.1s;">
-            <video 
-              id="magmaInteractiveVideo"
-              autoplay muted loop playsinline 
-              poster="assets/teaser-poster.jpg"
-              class="interactive-media">
+          <div class="bento-card video-card">
+            <video id="magmaVideo" autoplay muted loop playsinline poster="assets/teaser-poster.jpg">
               <source src="assets/Teaser.mp4" type="video/mp4">
             </video>
-            <div class="video-ui">
-              <button class="video-toggle magnetic-btn" id="muteToggle">
-                <svg viewBox="0 0 24 24" class="icon-unmute"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-              </button>
-              <span class="video-label">Ver el concepto</span>
-            </div>
+            <button id="muteBtn" class="mute-btn">Activar Sonido</button>
           </div>
 
-          <div class="bento-card stat-card spotlight-card reveal" style="transition-delay: 0.2s;">
-            <div class="stat-number">+92%</div>
+          <div class="bento-card stat-card">
+            <h2>+92%</h2>
             <p>Incremento en aplicación práctica de la FdV en menos de 24 horas.</p>
           </div>
 
@@ -69,70 +48,39 @@
       </div>
     </section>
 
-    <section class="container metrics-section">
-      <div class="metrics-grid">
-        <div class="evo-metric-card reveal">
-          <div class="evo-title">Aplicación Práctica (<24h)</div>
-          <div class="evo-bar-container"><div class="evo-bar-fill" data-end="92"></div></div>
-          <div class="evo-stats">
-            <div class="evo-before">E-learning Tradicional: <strong>12%</strong></div>
-            <div class="evo-after"><span class="count" data-start="12" data-target="92">12</span><span>%</span></div>
-          </div>
-        </div>
-
-        <div class="evo-metric-card reveal" style="transition-delay: 0.1s;">
-          <div class="evo-title">Engagement Promedio</div>
-          <div class="evo-bar-container"><div class="evo-bar-fill" data-end="89"></div></div>
-          <div class="evo-stats">
-            <div class="evo-before">Mercado Actual: <strong>15%</strong></div>
-            <div class="evo-after"><span class="count" data-start="15" data-target="89">15</span><span>%</span></div>
-          </div>
-        </div>
-
-        <div class="evo-metric-card reveal" style="transition-delay: 0.2s;">
-          <div class="evo-title">Retención del Conocimiento</div>
-          <div class="evo-bar-container"><div class="evo-bar-fill" data-end="86"></div></div>
-          <div class="evo-stats">
-            <div class="evo-before">A los 90 días: <strong>21%</strong></div>
-            <div class="evo-after"><span class="count" data-start="21" data-target="86">21</span><span>%</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="metodologia">
       <div class="container split">
-        <div class="reveal">
-          <span class="kicker">Aprendizaje en Movimiento</span>
-          <h2>Tu competencia no gana por tener mejor producto.</h2>
-          <p>Gana porque sus equipos comerciales están entrenados para responder más rápido y mejor a los problemas del cliente. MAGMA es un sistema vivo, diseñado para la trinchera.</p>
-        </div>
         <div>
-           <p class="reveal" style="font-size: 20px; color: var(--magma-bone); border-left: 2px solid var(--magma-amber); padding-left: 20px;">Reemplazamos horas de teoría que nadie recuerda, por microdosis de 3 minutos diarias conectadas directamente al móvil de tu equipo.</p>
+          <span class="kicker">El Problema</span>
+          <h2>Tu competencia no gana por tener mejor producto.</h2>
+          <p>Gana porque sus equipos comerciales están entrenados para responder más rápido y mejor a los problemas del cliente.</p>
+        </div>
+        <div class="highlight-box">
+          <p>Reemplazamos horas de teoría que nadie recuerda, por microdosis de 3 minutos diarias conectadas directamente a tu equipo.</p>
         </div>
       </div>
     </section>
 
-    <section class="section" id="casos" style="background: rgba(255,255,255,0.01); border-top: 1px solid var(--stroke); border-bottom: 1px solid var(--stroke);">
+    <section class="section gray-bg" id="casos">
       <div class="container">
-        <div class="reveal">
-          <span class="kicker">Evidencia Comercial</span>
-          <h2>El impacto se mide en la operación.</h2>
-          <p>Líderes que ya transformaron sus equipos con MAGMA.</p>
-        </div>
-
-        <div class="rauno-grid">
-          <div class="rauno-card reveal magnetic-btn" onclick="openModal('modal-sura')" style="transition-delay: 0.1s;">
-            <h3 style="color:var(--magma-bone); font-family: Pragmatica;">SURA</h3>
-            <p>"Metodología práctica y ágil. Han logrado entregar herramientas de aplicación inmediata que generan impacto real en los resultados..."</p>
+        <span class="kicker">Evidencia</span>
+        <h2 style="margin-bottom: 40px;">El impacto se mide en la operación.</h2>
+        
+        <div class="grid-3">
+          <div class="simple-card">
+            <h3>SURA</h3>
+            <p>"Metodología práctica y ágil. Han logrado entregar herramientas de aplicación inmediata que generan impacto real en los resultados."</p>
+            <small>— Dirección Escuela de Ventas</small>
           </div>
-          <div class="rauno-card reveal magnetic-btn" onclick="openModal('modal-team')" style="transition-delay: 0.2s;">
-            <h3 style="color:var(--magma-bone); font-family: Pragmatica;">Team Foods</h3>
-            <p>"Magma rompe el paradigma de formación tradicional. Sus microdosis no interrumpen la operación, permitiendo que el aprendizaje ocurra..."</p>
+          <div class="simple-card">
+            <h3>Team Foods</h3>
+            <p>"Magma rompe el paradigma de formación tradicional. Sus microdosis no interrumpen la operación, permitiendo el aprendizaje sin afectar la meta."</p>
+            <small>— Gerencia de Capacitación</small>
           </div>
-          <div class="rauno-card reveal magnetic-btn" onclick="openModal('modal-dislicores')" style="transition-delay: 0.3s;">
-            <h3 style="color:var(--magma-bone); font-family: Pragmatica;">Dislicores</h3>
+          <div class="simple-card">
+            <h3>Dislicores</h3>
             <p>Implementación a escala con más de 650 personas de la Fuerza de Ventas en 25 ciudades, logrando un engagement masivo.</p>
+            <small>— +92% de incremento productivo</small>
           </div>
         </div>
       </div>
@@ -140,80 +88,36 @@
 
     <section class="section" id="form">
       <div class="container split">
-        <div class="reveal">
+        <div>
           <span class="kicker">Acceso Restringido</span>
           <h2>Aplica para un Piloto Medible.</h2>
-          <p>Evaluamos solicitudes para garantizar que la cultura de tu empresa está lista para el aprendizaje vivo. Completa los datos para iniciar la evaluación.</p>
+          <p>Evaluamos solicitudes para garantizar que la cultura de tu empresa está lista para el aprendizaje vivo.</p>
         </div>
-
-        <form class="form reveal" id="leadForm" method="POST" action="https://formspree.io/f/TU_ID_AQUI">
-          <div class="field"><label>Nombre</label><input name="nombre" required></div>
-          <div class="field"><label>Email Corporativo</label><input type="email" id="b2bEmail" name="email" required></div>
-          <div class="field">
-            <label>Rol Estratégico</label>
-            <select name="rol" required>
-              <option value="">Selecciona</option>
-              <option>Director Comercial / Revenue</option>
-              <option>Director de RRHH / Cultura</option>
-              <option>CEO / Founder</option>
-            </select>
-          </div>
-          <button class="btn primary full-width magnetic-btn" type="submit" style="margin-top: 10px;">Solicitar Evaluación de Equipo</button>
+        <form class="form-box" action="https://formspree.io/f/TU_ID_AQUI" method="POST">
+          <label>Nombre</label>
+          <input type="text" name="nombre" required>
+          
+          <label>Email Corporativo</label>
+          <input type="email" name="email" required>
+          
+          <label>Rol</label>
+          <select name="rol" required>
+            <option value="">Selecciona tu cargo</option>
+            <option>Dirección Comercial</option>
+            <option>Recursos Humanos</option>
+            <option>CEO / Founder</option>
+          </select>
+          
+          <button type="submit" class="btn primary" style="width: 100%; margin-top: 10px;">Solicitar Evaluación</button>
         </form>
       </div>
     </section>
-    
-    <footer style="text-align: center; padding: 40px; color: rgba(226,222,192,0.5); font-size: 13px;">
-      &copy; <span id="year"></span> MAGMA Global
-    </footer>
   </main>
 
-  <div class="rauno-modal-overlay" id="mainModal" onclick="closeModal(event)">
-    <div class="rauno-modal-content">
-      <button class="modal-close magnetic-btn" onclick="closeModal(true)">&times;</button>
-      <div id="modalBody"></div>
-    </div>
-  </div>
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> MAGMA Global</div>
+  </footer>
 
-  <template id="tpl-sura">
-    <span class="kicker" style="margin-bottom: 20px;">Caso de Éxito</span>
-    <h3 style="color: #fff; font-family: Pragmatica; margin-bottom: 20px;">SURA</h3>
-    <p style="font-size: 22px; font-style: italic; color: #fff; line-height: 1.4; margin-bottom: 30px;">
-      "Metodología práctica y ágil. Han logrado entregar herramientas de aplicación inmediata que generan impacto real en los resultados comerciales."
-    </p>
-    <div style="border-top: 1px solid var(--stroke); padding-top: 20px;">
-      <h4 style="color: var(--magma-amber); margin: 0; font-family: Pragmatica;">Juan Camilo B.</h4>
-      <p style="margin: 0; font-size: 13px;">Director de Habilidades y Escuela de Ventas</p>
-    </div>
-  </template>
-
-  <template id="tpl-team">
-    <span class="kicker" style="margin-bottom: 20px;">Caso de Éxito</span>
-    <h3 style="color: #fff; font-family: Pragmatica; margin-bottom: 20px;">Team Foods</h3>
-    <p style="font-size: 22px; font-style: italic; color: #fff; line-height: 1.4; margin-bottom: 30px;">
-      "Magma rompe el paradigma de formación tradicional. Sus microdosis no interrumpen la operación, permitiendo que el aprendizaje ocurra sin afectar la meta."
-    </p>
-    <div style="border-top: 1px solid var(--stroke); padding-top: 20px;">
-      <h4 style="color: var(--magma-amber); margin: 0; font-family: Pragmatica;">Sandra M.</h4>
-      <p style="margin: 0; font-size: 13px;">Gerente Capacitación y Desarrollo</p>
-    </div>
-  </template>
-
-  <template id="tpl-dislicores">
-    <span class="kicker" style="margin-bottom: 20px;">Implementación a Escala</span>
-    <h3 style="color: #fff; font-family: Pragmatica; margin-bottom: 20px;">Dislicores</h3>
-    <ul style="color: rgba(226,222,192,0.8); line-height: 2; font-size: 16px; margin-bottom: 30px; padding-left: 20px;">
-      <li><strong>Fuerza de Ventas:</strong> 650 personas activas.</li>
-      <li><strong>Alcance:</strong> +25 ciudades y 8 regionales.</li>
-      <li><strong>Productividad:</strong> Incremento del 92% en métricas de adopción.</li>
-      <li><strong>Interacción:</strong> Solo 3 minutos diarios requeridos por vendedor.</li>
-    </ul>
-    <div style="background: rgba(206,141,37,0.1); padding: 15px; border-radius: 8px; border: 1px solid rgba(206,141,37,0.3);">
-      <p style="color: var(--magma-amber); margin: 0; font-weight: bold; font-size: 14px;">El reto superado:</p>
-      <p style="margin: 0; font-size: 13px; color: #fff;">Llevar contenido homologado a 5 canales de venta distintos sin frenar rutas comerciales.</p>
-    </div>
-  </template>
-
-  <script src="script.js"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
