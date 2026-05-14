@@ -89,52 +89,38 @@
   <main id="main-content">
     <div id="inicio"></div>
     
-<section class="section hero-bento" id="inicio">
-      <div class="container">
-        <div class="bento-grid-hero">
+<section class="cinematic-hero" id="inicio">
+      
+      <video id="magmaHeroVideo" autoplay muted loop playsinline webkit-playsinline class="hero-video-bg">
+        <source src="assets/Teaser.mp4" type="video/mp4">
+      </video>
+      
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="reveal">
           
-          <div class="bento-card main-val spotlight-card reveal">
-            <span class="kicker">Aprendizaje en Movimiento</span>
-            
-            <h1 class="mask-title">
-              <span class="mask-line"><span>Conocimiento que</span></span>
-              <span class="mask-line"><span>se traduce en</span></span>
-              <span class="mask-line"><span style="color: var(--magma-amber);">acción.</span></span>
-            </h1>
-
-            <p>Transformamos la capacitación pasiva en un sistema de alto rendimiento. Reemplazamos horas de teoría que nadie recuerda, por microdosis conectadas a la operación real.</p>
-            
-            <div class="btn-group" style="margin-top: 20px;">
-              <a href="#form" class="btn primary magnetic-btn">Iniciar Piloto Medible</a>
-            </div>
+          <div class="mask-line">
+            <span class="hero-kicker">Somos el futuro del aprendizaje de las empresas</span>
+          </div>
+          
+          <h1 class="hero-title mask-title">
+            <span class="mask-line"><span>Equipos</span></span>
+            <span class="mask-line"><span>Potenciados</span></span>
+            <span class="mask-line"><span>Por <span style="color: var(--magma-amber);">Magma</span></span></span>
+          </h1>
+          
+          <div class="mask-line" style="transition-delay: 0.4s;">
+            <p class="hero-subtitle">La constancia crea la fuerza</p>
           </div>
 
-          <div class="bento-card video-card reveal" style="transition-delay: 0.1s;">
-            <video id="magmaInteractiveVideo" autoplay muted loop playsinline webkit-playsinline poster="assets/teaser-poster.jpg" class="interactive-media">
-              <source src="assets/Teaser.mp4" type="video/mp4">
-            </video>
-            <div class="video-ui">
-              <button class="video-toggle magnetic-btn" id="muteToggle">
-                <svg viewBox="0 0 24 24" class="icon-unmute" style="width:20px;height:20px"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-              </button>
-              <span class="video-label">Ver concepto</span>
-            </div>
-          </div>
-
-          <div class="bento-card stat-card spotlight-card reveal" style="transition-delay: 0.2s; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-            <div>
-              <div class="stat-number">3<span style="font-size: 24px;">min</span></div>
-              <p style="margin:0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Inversión diaria</p>
-            </div>
-            <div style="width: 1px; height: 50px; background: var(--stroke);"></div>
-            <div style="text-align: right;">
-              <div class="stat-number" style="color: var(--magma-amber);">+92%</div>
-              <p style="margin:0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">Adopción FdV</p>
-            </div>
+          <div class="mask-line" style="transition-delay: 0.6s; margin-top: 40px;">
+            <span><a href="#form" class="btn primary magnetic-btn">Iniciar Protocolo</a></span>
           </div>
 
         </div>
       </div>
+      
     </section>
 
     <section class="container metrics-section">
