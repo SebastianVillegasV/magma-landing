@@ -1,158 +1,192 @@
 <!doctype html>
 <html lang="es">
-  <style>
-    .magma-bg-container {
-      position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; 
-    }
-    
-    /* Círculos sólidos puros. El blur hace toda la magia del difuminado */
-    .magma-blob {
-      position: absolute; 
-      border-radius: 50%;
-      filter: blur(120px);
-      -webkit-filter: blur(120px); /* Obligatorio para Safari */
-    }
-    
-    /* Mismos tamaños y colores del App.tsx */
-    .blob-red {
-      width: 800px; height: 800px;
-      background-color: rgba(202, 17, 17, 0.25);
-      top: -200px; left: -200px;
-      animation: floatRed 25s ease-in-out infinite;
-    }
-    
-    .blob-amber {
-      width: 600px; height: 600px;
-      background-color: rgba(206, 141, 37, 0.25);
-      bottom: -100px; right: -100px;
-      animation: floatAmber 30s ease-in-out infinite;
-    }
-    
-    /* Animaciones 2D planas. (Sin "translate3d" para no romper el motor de Safari) */
-    @keyframes floatRed {
-      0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-      25% { transform: translate(150px, -100px) scale(1.4) rotate(45deg); }
-      50% { transform: translate(-50px, 50px) scale(0.8) rotate(-45deg); }
-      75% { transform: translate(100px, 150px) scale(1.2) rotate(20deg); }
-    }
-    
-    @keyframes floatAmber {
-      0%, 100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-      33% { transform: translate(-100px, 150px) scale(1.2) rotate(-30deg); }
-      66% { transform: translate(100px, -50px) scale(0.9) rotate(30deg); }
-    }
-  </style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MAGMA — La constancia crea fuerza</title>
   <meta name="description" content="Entrenamiento vivo y medible para equipos comerciales.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=13">
 </head>
 
 <body>
-  <div class="magma-bg-container">
+
+  <!-- FONDO MAGMA ANIMADO -->
+  <div class="magma-bg-container" aria-hidden="true">
     <div class="magma-blob blob-red"></div>
     <div class="magma-blob blob-amber"></div>
+    <div class="magma-blob blob-core"></div>
+    <canvas id="particle-canvas"></canvas>
   </div>
-  <div class="custom-cursor"></div>
-  <div class="cursor-follower"></div>
 
+  <!-- NOISE TEXTURE OVERLAY -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- CURSOR -->
+  <div class="custom-cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <svg class="cursor-flame" viewBox="0 0 24 24">
+      <path d="M12 2c0 0-5 7-5 11.5a5.5 5.5 0 0 0 11 0C18 9 12 2 12 2zM12 20a3.5 3.5 0 0 1-3.5-3.5c0-2 1.5-4.5 3.5-6.5 2 2 3.5 4.5 3.5 6.5A3.5 3.5 0 0 1 12 20z" fill="currentColor"/>
+    </svg>
+  </div>
+  <div class="cursor-follower" aria-hidden="true"></div>
+
+  <!-- DOCK -->
   <div class="mac-dock-wrapper">
-    <nav class="mac-dock">
-      
-      <a href="#inicio" class="dock-item logo-dock-item" data-tooltip="Inicio">
+    <nav class="mac-dock" role="navigation" aria-label="Navegación principal">
+
+      <a href="#inicio" class="dock-item logo-dock-item" data-tooltip="Inicio" aria-label="Inicio">
         <img src="assets/isologo.svg" alt="MAGMA" class="dock-logo">
-        <svg class="dock-flame" viewBox="0 0 24 24">
-          <path d="M12 2c0 0-5 7-5 11.5a5.5 5.5 0 0 0 11 0C18 9 12 2 12 2zM12 20a3.5 3.5 0 0 1-3.5-3.5c0-2 1.5-4.5 3.5-6.5 2 2 3.5 4.5 3.5 6.5A3.5 3.5 0 0 1 12 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg class="dock-flame" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2c0 0-5 7-5 11.5a5.5 5.5 0 0 0 11 0C18 9 12 2 12 2zM12 20a3.5 3.5 0 0 1-3.5-3.5c0-2 1.5-4.5 3.5-6.5 2 2 3.5 4.5 3.5 6.5A3.5 3.5 0 0 1 12 20z" fill="none" stroke="currentColor" stroke-width="2"/>
         </svg>
       </a>
 
-      <a href="#metodologia" class="dock-item" data-tooltip="Solución">
-        <svg viewBox="0 0 24 24">
+      <a href="#metodologia" class="dock-item" data-tooltip="Solución" aria-label="Solución">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
         </svg>
       </a>
 
-      <a href="#casos" class="dock-item" data-tooltip="Éxito">
-        <svg viewBox="0 0 24 24">
+      <a href="#casos" class="dock-item" data-tooltip="Éxito" aria-label="Casos de éxito">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
         </svg>
       </a>
 
-      <a href="#form" class="dock-item primary magnetic-btn" data-tooltip="Piloto">Activar</a>
-      
+      <a href="#form" class="dock-item primary magnetic-btn" data-tooltip="Piloto" aria-label="Activar piloto">
+        <span class="btn-text">Activar</span>
+        <span class="btn-glow" aria-hidden="true"></span>
+      </a>
+
     </nav>
   </div>
 
   <main id="main-content">
     <div id="inicio"></div>
-    
-<section class="cinematic-container" id="inicio">
+
+    <!-- HERO CINEMATIC -->
+    <section class="cinematic-container" id="hero">
       <div class="video-window">
-        
-        <video autoplay muted loop playsinline webkit-playsinline class="hero-video-panoramic">
+
+        <video autoplay muted loop playsinline webkit-playsinline class="hero-video-panoramic" aria-hidden="true">
           <source src="assets/Teaser.mp4" type="video/mp4">
         </video>
-        
-        <div class="video-overlay-tint"></div>
 
-        <div class="text-sequence-overlay">
+        <div class="video-overlay-tint" aria-hidden="true"></div>
+        <div class="video-vignette" aria-hidden="true"></div>
+
+        <!-- SCANLINE CINEMATIC EFFECT -->
+        <div class="scanlines" aria-hidden="true"></div>
+
+        <div class="text-sequence-overlay" aria-live="polite">
           <p class="seq-text st-1">Somos el futuro del aprendizaje de las empresas</p>
           <p class="seq-text st-2">Equipos potenciados por Magma</p>
           <p class="seq-text st-3">La constancia crea la fuerza</p>
         </div>
 
+        <!-- SCROLL INDICATOR -->
+        <div class="scroll-indicator" aria-hidden="true">
+          <div class="scroll-line"></div>
+          <span>scroll</span>
+        </div>
+
       </div>
     </section>
 
-    <section class="section intro-text">
-  <div class="container text-center">
-    </div>
-</section>
-
-    <section class="section intro-text">
+    <!-- INTRO STATEMENT -->
+    <section class="section intro-text" id="metodologia">
       <div class="container text-center">
         <div class="reveal">
-          <h2 class="pragmatica-bold">Capacitación que no detiene la operación.</h2>
+          <div class="eyebrow-tag">Metodología</div>
+          <h2 class="pragmatica-bold display-headline">
+            Capacitación que no detiene<br>la operación.
+          </h2>
           <p class="large-p">Integramos el aprendizaje vivo en el flujo de trabajo diario de tus equipos, asegurando que cada minuto invertido se traduzca en resultados medibles para la organización.</p>
+          <div class="divider-line" aria-hidden="true"></div>
         </div>
       </div>
     </section>
 
-    <section class="container metrics-section">
+    <!-- MÉTRICAS EVOLUTIVAS -->
+    <section class="container metrics-section" id="casos">
+      <div class="section-label reveal">
+        <span class="label-number">01</span>
+        <span class="label-text">Resultados que hablan</span>
+      </div>
+
       <div class="metrics-grid">
-        <div class="evo-metric-card reveal">
-          <div class="evo-title">Aplicación Práctica (<24h)</div>
-          <div class="evo-bar-container"><div class="evo-bar-fill" data-end="92"></div></div>
+
+        <div class="evo-metric-card spotlight-card reveal" role="region" aria-label="Aplicación Práctica">
+          <div class="card-index" aria-hidden="true">01</div>
+          <div class="evo-title">Aplicación Práctica <span class="time-badge">&lt;24h</span></div>
+          <div class="evo-bar-container" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
+            <div class="evo-bar-fill" data-end="92"></div>
+          </div>
           <div class="evo-stats">
             <div class="evo-before">Tradicional: <strong>12%</strong></div>
-            <div class="evo-after"><span class="count" data-start="12" data-target="92">12</span><span>%</span></div>
+            <div class="evo-after">
+              <span class="count" data-start="12" data-target="92">12</span><span class="pct">%</span>
+            </div>
           </div>
+          <div class="card-glow" aria-hidden="true"></div>
         </div>
 
-        <div class="evo-metric-card reveal" style="transition-delay: 0.1s;">
+        <div class="evo-metric-card spotlight-card reveal" style="transition-delay: 0.12s;" role="region" aria-label="Engagement Promedio">
+          <div class="card-index" aria-hidden="true">02</div>
           <div class="evo-title">Engagement Promedio</div>
-          <div class="evo-bar-container"><div class="evo-bar-fill" data-end="89"></div></div>
+          <div class="evo-bar-container" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100">
+            <div class="evo-bar-fill" data-end="89"></div>
+          </div>
           <div class="evo-stats">
             <div class="evo-before">Mercado Actual: <strong>15%</strong></div>
-            <div class="evo-after"><span class="count" data-start="15" data-target="89">15</span><span>%</span></div>
+            <div class="evo-after">
+              <span class="count" data-start="15" data-target="89">15</span><span class="pct">%</span>
+            </div>
           </div>
+          <div class="card-glow" aria-hidden="true"></div>
         </div>
 
-        <div class="evo-metric-card reveal" style="transition-delay: 0.2s;">
+        <div class="evo-metric-card spotlight-card reveal" style="transition-delay: 0.24s;" role="region" aria-label="Retención del Conocimiento">
+          <div class="card-index" aria-hidden="true">03</div>
           <div class="evo-title">Retención del Conocimiento</div>
-          <div class="evo-bar-container"><div class="evo-bar-fill" data-end="86"></div></div>
+          <div class="evo-bar-container" role="progressbar" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100">
+            <div class="evo-bar-fill" data-end="86"></div>
+          </div>
           <div class="evo-stats">
             <div class="evo-before">A 90 días: <strong>21%</strong></div>
-            <div class="evo-after"><span class="count" data-start="21" data-target="86">21</span><span>%</span></div>
+            <div class="evo-after">
+              <span class="count" data-start="21" data-target="86">21</span><span class="pct">%</span>
+            </div>
+          </div>
+          <div class="card-glow" aria-hidden="true"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section" id="form">
+      <div class="container text-center">
+        <div class="reveal">
+          <div class="cta-inner">
+            <div class="cta-flame-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2c0 0-5 7-5 11.5a5.5 5.5 0 0 0 11 0C18 9 12 2 12 2zM12 20a3.5 3.5 0 0 1-3.5-3.5c0-2 1.5-4.5 3.5-6.5 2 2 3.5 4.5 3.5 6.5A3.5 3.5 0 0 1 12 20z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h2 class="cta-headline">¿Listo para encender<br>tu equipo?</h2>
+            <p class="cta-sub">Activa un piloto sin costo. Resultados medibles en 30 días.</p>
+            <a href="mailto:hola@magma.com" class="cta-btn magnetic-btn" aria-label="Activar piloto gratuito">
+              <span>Activar Piloto</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <div style="height: 100px;"></div>
+    <div style="height: 80px;"></div>
   </main>
 
   <script src="script.js"></script>
