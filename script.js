@@ -1,112 +1,253 @@
-document.addEventListener("DOMContentLoaded", () => {
-  
-  // 1. CURSOR CUSTOM Y HOVER
-  const cursor = document.querySelector('.custom-cursor');
-  const follower = document.querySelector('.cursor-follower');
-  let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
+/* ============================================================
+   MAGMA v2 — script.js
+   Partículas · Cursor · Magnético · Scroll reveal · Métricas
+   ============================================================ */
 
-  // Solo cargar cursor en pantallas que soportan hover (evita bugs en touch/móvil)
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if(cursor) {
-        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ── 1. PARTICLE SYSTEM ──────────────────────────────────────
+  (function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width  = window.innerWidth;
+    let H = canvas.height = window.innerHeight;
+    let animId;
+
+    // Reduce count on low-end / mobile
+    const isMobile = window.matchMedia("(max-width:900px)").matches;
+    const PARTICLE_COUNT = isMobile ? 0 : 38;
+
+    const COLORS = [
+      'rgba(202,17,17,',
+      'rgba(206,141,37,',
+      'rgba(226,222,192,',
+    ];
+
+    class Particle {
+      constructor() { this.reset(true); }
+
+      reset(initial = false) {
+        this.x  = Math.random() * W;
+        this.y  = initial ? Math.random() * H : H + 20;
+        this.r  = Math.random() * 2.2 + 0.4;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = -(Math.random() * 0.55 + 0.2);
+        this.life   = 0;
+        this.maxLife = 200 + Math.random() * 200;
+        this.color  = COLORS[Math.floor(Math.random() * COLORS.length)];
+        if (initial) this.life = Math.random() * this.maxLife;
       }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life++;
+        if (this.life > this.maxLife) this.reset();
+      }
+
+      draw() {
+        const progress = this.life / this.maxLife;
+        const alpha    = progress < 0.15
+          ? progress / 0.15
+          : progress > 0.75
+            ? 1 - (progress - 0.75) / 0.25
+            : 1;
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = `${this.color}${(alpha * 0.55).toFixed(2)})`;
+        ctx.fill();
+      }
+    }
+
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => { p.update(); p.draw(); });
+      animId = requestAnimationFrame(loop);
+    }
+
+    loop();
+
+    const onResize = () => {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', onResize, { passive: true });
+  })();
+
+
+  // ── 2. CURSOR PERSONALIZADO ──────────────────────────────────
+  const cursorEl   = document.querySelector('.custom-cursor');
+  const followerEl = document.querySelector('.cursor-follower');
+
+  const supportsHover = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+  if (supportsHover && cursorEl && followerEl) {
+    let mx = 0, my = 0, fx = 0, fy = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursorEl.style.transform = `translate3d(${mx}px,${my}px,0)`;
     });
 
-    function animateFollower() {
-      followerX += (mouseX - followerX) * 0.15;
-      followerY += (mouseY - followerY) * 0.15;
-      if (follower) {
-        follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
-      }
-      requestAnimationFrame(animateFollower);
-    }
-    animateFollower();
+    (function followLoop() {
+      fx += (mx - fx) * 0.13;
+      fy += (my - fy) * 0.13;
+      followerEl.style.transform = `translate3d(${fx}px,${fy}px,0) translate(-50%,-50%)`;
+      requestAnimationFrame(followLoop);
+    })();
   }
 
-  // BOTONES MAGNÉTICOS (Física Suave)
-  const magneticEls = document.querySelectorAll('.magnetic-btn, .dock-item');
-  magneticEls.forEach((el) => {
-    el.addEventListener('mouseenter', () => { document.body.classList.add('hovering'); });
+
+  // ── 3. BOTONES MAGNÉTICOS ────────────────────────────────────
+  const magnetEls = document.querySelectorAll('.magnetic-btn, .dock-item');
+
+  magnetEls.forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+
     el.addEventListener('mouseleave', () => {
       document.body.classList.remove('hovering');
-      el.style.transform = `translate3d(0px, 0px, 0)`;
+      el.style.transform = '';
     });
-    el.addEventListener('mousemove', (e) => {
-      const position = el.getBoundingClientRect();
-      const x = e.clientX - position.left - position.width / 2;
-      const y = e.clientY - position.top - position.height / 2;
-      el.style.transform = `translate3d(${x * 0.25}px, ${y * 0.25}px, 0)`;
+
+    el.addEventListener('mousemove', e => {
+      const r  = el.getBoundingClientRect();
+      const dx = e.clientX - r.left  - r.width  / 2;
+      const dy = e.clientY - r.top   - r.height / 2;
+      const strength = el.classList.contains('magnetic-btn') ? 0.3 : 0.22;
+      el.style.transform = `translate3d(${dx * strength}px,${dy * strength}px,0)`;
     });
   });
 
-  // 2. SPOTLIGHT (Linterna)
-  const spotlightCards = document.querySelectorAll('.spotlight-card');
-  spotlightCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+
+  // ── 4. SPOTLIGHT EN CARDS ────────────────────────────────────
+  document.querySelectorAll('.evo-metric-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+      card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
     });
   });
 
-  // 3. VIDEO INTERACTIVO
-  const magmaVideo = document.getElementById('magmaInteractiveVideo');
-  const muteBtn = document.getElementById('muteToggle');
-  if(magmaVideo && muteBtn) {
-    muteBtn.addEventListener('click', () => {
-      magmaVideo.muted = !magmaVideo.muted;
-      const muteIcon = `<svg viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" fill="none" stroke="currentColor" stroke-width="2"/></svg>`;
-      const unmuteIcon = `<svg viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2"/><line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2"/></svg>`;
-      muteBtn.innerHTML = magmaVideo.muted ? muteIcon : unmuteIcon;
-    });
-  }
 
-  // 4. ANIMACIONES AL HACER SCROLL (Compatible)
-  const reveals = document.querySelectorAll('.reveal');
-  const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
-  
-  const revealOnScroll = new IntersectionObserver((entries, observer) => {
+  // ── 5. SCROLL REVEAL (IntersectionObserver) ──────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      
       entry.target.classList.add('active');
+
       if (entry.target.classList.contains('evo-metric-card')) {
-         animateEvolution(entry.target);
+        animateCard(entry.target);
       }
-      observer.unobserve(entry.target); 
+
+      obs.unobserve(entry.target);
     });
-  }, revealOptions);
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
-  reveals.forEach(reveal => revealOnScroll.observe(reveal));
+  revealEls.forEach(el => observer.observe(el));
 
-  function animateEvolution(card) {
-    const barFill = card.querySelector('.evo-bar-fill');
-    if (barFill) {
-      setTimeout(() => { barFill.style.width = barFill.getAttribute('data-end') + '%'; }, 300);
+
+  // ── 6. ANIMACIÓN DE MÉTRICAS ─────────────────────────────────
+  function animateCard(card) {
+    // Barra de progreso
+    const bar = card.querySelector('.evo-bar-fill');
+    if (bar) {
+      const target = bar.getAttribute('data-end');
+      setTimeout(() => {
+        bar.style.width = target + '%';
+        bar.classList.add('animated');
+      }, 350);
     }
-    const countSpan = card.querySelector('.count');
-    if (countSpan) {
-      const start = parseInt(countSpan.getAttribute('data-start'));
-      const target = parseInt(countSpan.getAttribute('data-target'));
-      const duration = 2000; 
-      const increment = (target - start) / (duration / 16); 
-      let current = start;
 
-      const updateCount = () => {
-        current += increment;
-        if (current < target) {
-          countSpan.innerText = Math.ceil(current);
-          requestAnimationFrame(updateCount);
+    // Contador numérico con easing
+    const countEl = card.querySelector('.count');
+    if (countEl) {
+      const start    = parseInt(countEl.getAttribute('data-start'), 10);
+      const end      = parseInt(countEl.getAttribute('data-target'), 10);
+      const duration = 2200;
+      const startTime = performance.now();
+
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+      const tick = (now) => {
+        const elapsed  = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased    = easeOut(progress);
+        const current  = Math.round(start + (end - start) * eased);
+
+        countEl.textContent = current;
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
         } else {
-          countSpan.innerText = target;
+          countEl.textContent = end;
         }
       };
-      setTimeout(updateCount, 300);
+
+      setTimeout(() => requestAnimationFrame(tick), 380);
     }
   }
+
+
+  // ── 7. PARALLAX SUAVE EN HERO VIDEO ─────────────────────────
+  const heroVideo = document.querySelector('.hero-video-panoramic');
+
+  if (heroVideo && !window.matchMedia("(max-width:900px)").matches) {
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      heroVideo.style.transform = `translateY(${scrollY * 0.25}px)`;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+
+  // ── 8. SCROLL INDICATOR AUTO-HIDE ───────────────────────────
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (scrollIndicator) {
+    const hideOnScroll = () => {
+      if (window.scrollY > 60) {
+        scrollIndicator.style.opacity = '0';
+        scrollIndicator.style.transition = 'opacity 0.5s';
+      }
+    };
+    window.addEventListener('scroll', hideOnScroll, { passive: true, once: true });
+  }
+
+
+  // ── 9. ACTIVE DOCK LINK ──────────────────────────────────────
+  const sections  = document.querySelectorAll('section[id], div[id]');
+  const dockLinks = document.querySelectorAll('.dock-item[href^="#"]');
+
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        dockLinks.forEach(link => {
+          const href = link.getAttribute('href').slice(1);
+          link.classList.toggle('dock-active', href === id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => sectionObserver.observe(s));
+
+
+  // ── 10. MAGMA CTA — Hover de llama animado ───────────────────
+  const ctaBtn = document.querySelector('.cta-btn');
+  if (ctaBtn) {
+    ctaBtn.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+    ctaBtn.addEventListener('mouseleave', () => {
+      document.body.classList.remove('hovering');
+      ctaBtn.style.transform = '';
+    });
+  }
+
 });
